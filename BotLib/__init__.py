@@ -1,2 +1,2 @@
 def create_app():
-    print("Boom Boom!")
+    print("Nothing new here!")

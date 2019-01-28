@@ -1,0 +1,14 @@
+1) https://developers.facebook.com/docs/messenger-platform/reference/send-api
+
+2) https://developers.facebook.com/docs/messenger-platform/reference/template/button
+
+3) https://developers.facebook.com/docs/messenger-platform/reference/template/generic
+
+4) https://developers.facebook.com/docs/messenger-platform/reference/template/list
+
+5) https://developers.facebook.com/docs/messenger-platform/reference/template/media
+
+6) https://developers.facebook.com/docs/messenger-platform/reference/template/open-graph
+
+7) https://developers.facebook.com/docs/messenger-platform/reference/template/receipt
+

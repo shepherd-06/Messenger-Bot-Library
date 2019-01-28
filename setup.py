@@ -1,7 +1,7 @@
 from setuptools import setup
 
 install_requires = [
-    
+    'Zathura',
 ]
 
 setup(name='bizarro',  # alternative name docket
