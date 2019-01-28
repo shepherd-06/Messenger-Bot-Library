@@ -33,3 +33,22 @@ class Utility:
         payload = self.__create_basic_recipient(user_id)
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_MARK_SEEN
         return payload
+
+    def basic_text_reply_payload(self, user_id:str, message:str, typing_on:float = 1.5):
+        """
+        this functions generates the payload for basic text reply
+        :param waiting_period: how long will the typing_on display run, default is 1.5 seconds
+        :param user_id: user_id of a particular user_id
+        :param message: message user going to see
+        :return: payload
+        """
+        if self.__typing_on(user_id, typing_on) == 0:
+            payload = {
+                Tags.TAG_RECIPIENT: {
+                    Tags.TAG_ID: user_id
+                },
+                Tags.TAG_MESSAGE: {
+                    Tags.TAG_TEXT: message
+                }
+            }
+            return payload
