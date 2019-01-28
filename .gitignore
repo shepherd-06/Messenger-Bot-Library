@@ -1,0 +1,10 @@
+.vscode/
+__pycache__
+venv/
+build/
+dist/
+*.egg-info/
+logs/
+.idea/
+logger.db
+FileLogger
