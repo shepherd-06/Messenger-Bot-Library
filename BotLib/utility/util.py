@@ -1,9 +1,9 @@
-from .tag import Tags
+from BotLib.utility.tag import Tags
 
 class Utility:
 
-    @classmethod
-    def __create_basic_recipient(cls: Utility, user_id: str):
+    @staticmethod
+    def __create_basic_recipient(user_id: str):
         """
         :param user_id: facebook users user id.
         :return: creates the receipients payload
@@ -42,8 +42,7 @@ class Utility:
         :param message: message user going to see
         :return: payload
         """
-        if self.__typing_on(user_id, typing_on) == 0:
-            payload = {
+        payload = {
                 Tags.TAG_RECIPIENT: {
                     Tags.TAG_ID: user_id
                 },
@@ -51,4 +50,10 @@ class Utility:
                     Tags.TAG_TEXT: message
                 }
             }
-            return payload
+        return payload    
+
+
+# if __name__ == '__main__':
+#     util = Utility()
+#     x = util.basic_text_reply_payload('1234', 'dfsdf')
+#     print(x)
