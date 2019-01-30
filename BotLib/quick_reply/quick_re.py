@@ -11,14 +11,31 @@ class QuickReply():
         self.user_id = user_id
         self.utility = Utility()
 
-    def quick_reply_text(self, title: str, payload: list):
+    def quick_reply(self, title: str, payload: list):
         """
         attachment is not enabled at this moment. This will generate a complete payload for the quick reply
         title: str contains the title of the quick reply payload.
         payload: list payload generated from quick_reply_payload_generator function.
         returns _quick_reply_complete_payload
         """
-        pass
+        validate = self.__quick_reply_payload_validation(payload)
+        function_name = self.quick_reply.__name__
+        zathura_error_name = "quick_reply"
+        if not validate:
+            self.utility.log_error(self.user_id, zathura_error_name, "quick reply payload invalid", function_name, 1)
+            return
+        
+        if title is None or len(title) == 0:
+            self.utility.log_error(self.user_id, zathura_error_name, "quick reply title cannot be None or empty string", function_name, 1)
+            return
+        message = {
+            Tags.TAG_TEXT: title,
+            Tags.TAG_QUICK_REPLIES: payload,
+        }
+        quick_reply_payload = self.utility._Utility__create_basic_recipient(self.user_id)
+        quick_reply_payload[Tags.TAG_MESSAGE] = message
+        self.utility.log_debug(quick_reply_payload, function_name)
+        return quick_reply_payload
 
     def quick_reply_payload_generator(self, title_text: list, payload: list, image_url: list,
                                       content_type: str = 'text'):
@@ -103,30 +120,47 @@ class QuickReply():
         return quick_reply_payload
 
 
-def __quick_reply_payload_validation(self, payload: list):
-    """
-    this function validate the quick reply payload before sending it back to 
-    calling function.
-    """
-    for items in payload:
-        if Tags.TAG_CONTENT_TYPE_TEXT in items:
-            _content_type = items[Tags.TAG_CONTENT_TYPE_TEXT]
-            if _content_type == 'text':
-                _title = items[Tags.TAG_TITLE] if Tags.TAG_TITLE in items else None
-                _payload = items[Tags.TAG_PAYLOAD] if Tags.TAG_PAYLOAD in items else None
-                _image_url = items[Tags.TAG_IMAGE_URL] if Tags.TAG_IMAGE_URL in items else None
+    def __quick_reply_payload_validation(self, payload: list):
+        """
+        this function validate the quick reply payload before sending it back to 
+        calling function.
+        """
+        zathura_error_name = "q_reply_payload_validation"
+        function_name = self.__quick_reply_payload_validation.__name__
+        if len(payload) > 11:
+            # error - payload cannot have more than 11 items
+            self.utility.log_error(self.user_id, zathura_error_name, " A maximum of 11 quick replies are supported", function_name, 3)
+            return False
+        for items in payload:
+            if Tags.TAG_CONTENT_TYPE_TEXT in items:
+                _content_type = items[Tags.TAG_CONTENT_TYPE_TEXT]
+                if _content_type == 'text':
+                    _title = items[Tags.TAG_TITLE] if Tags.TAG_TITLE in items else None
+                    _payload = items[Tags.TAG_PAYLOAD] if Tags.TAG_PAYLOAD in items else None
+                    _image_url = items[Tags.TAG_IMAGE_URL] if Tags.TAG_IMAGE_URL in items else None
 
-                # check here title, payload and image_url
-                if _image_url is not None:
-                    if not Utility.url_validation(_image_url):
-                        # url is not valid.
-                        pass
-            else:
-                if Tags.TAG_IMAGE_URL in items:
-                    _image_url = items[Tags.TAG_IMAGE_URL]
-                    if not Utility.url_validation(_image_url):
-                        # url is not valid.
-                        pass
+                    # check here title, payload and image_url
+                    if _image_url is not None:
+                        if not Utility.url_validation(_image_url):
+                            # url is not valid
+                            self.utility.log_error(self.user_id, zathura_error_name, "image_url invalid", function_name, 3)
+                            return False
+                    if _title is None and _image_url is None:
+                        # error:
+                        self.utility.log_error(self.user_id, zathura_error_name, "title and image_url both are none", function_name, 3)
+                        return False
+                    if _image_url is None and _payload is None:
+                        # error
+                        self.utility.log_error(self.user_id, zathura_error_name, "payload and image_url both are none", function_name, 3)
+                        return False
+                else:
+                    if Tags.TAG_IMAGE_URL in items:
+                        _image_url = items[Tags.TAG_IMAGE_URL]
+                        if not Utility.url_validation(_image_url):
+                            # url is not valid.
+                            self.utility.log_error(self.user_id, zathura_error_name, "url is not valid", function_name, 3)
+                            return False
+        return True
 
 
 if __name__ == '__main__':

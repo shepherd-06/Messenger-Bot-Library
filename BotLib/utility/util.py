@@ -9,6 +9,9 @@ class Utility:
     
     def log_error(self, user: str, error: str, description: str, origin: str, warning_lvl: int):
         self.zathura.insert_error_log(user, error, description, origin, warning_lvl)
+    
+    def log_debug(self, message: str, origin: str):
+        self.zathura.insert_debug_log(message_data=message, point_of_origin=origin, developer="bizarro")
 
     @staticmethod
     def url_validation(url: str):
