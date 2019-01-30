@@ -26,4 +26,4 @@ typed-ast==1.2.0
 urllib3==1.24.1
 webencodings==0.5.1
 wrapt==1.11.1
-Zathura==0.7.4.dev1
+zathura==0.0.3.dev1

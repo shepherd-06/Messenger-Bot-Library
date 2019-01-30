@@ -1,7 +1,14 @@
 import re
 from BotLib.utility.tag import Tags
+from ZathuraProject.zathura import Zathura
 
 class Utility:
+
+    def __init__(self):
+        self.zathura = Zathura()
+    
+    def log_error(self, user: str, error: str, description: str, origin: str, warning_lvl: int):
+        self.zathura.insert_error_log(user, error, description, origin, warning_lvl)
 
     @staticmethod
     def url_validation(url: str):
