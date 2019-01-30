@@ -109,7 +109,25 @@ def __quick_reply_payload_validation(self, payload: list):
     this function validate the quick reply payload before sending it back to 
     calling function.
     """
-    pass
+    for items in payload:
+        if Tags.TAG_CONTENT_TYPE_TEXT in items:
+            _content_type = items[Tags.TAG_CONTENT_TYPE_TEXT]
+            if _content_type == 'text':
+                _title = items[Tags.TAG_TITLE] if Tags.TAG_TITLE in items else None
+                _payload = items[Tags.TAG_PAYLOAD] if Tags.TAG_PAYLOAD in items else None
+                _image_url = items[Tags.TAG_IMAGE_URL] if Tags.TAG_IMAGE_URL in items else None
+
+                # check here title, payload and image_url
+                if _image_url is not None:
+                    if not Utility.url_validation(_image_url):
+                        # url is not valid.
+                        pass
+            else:
+                if Tags.TAG_IMAGE_URL in items:
+                    _image_url = items[Tags.TAG_IMAGE_URL]
+                    if not Utility.url_validation(_image_url):
+                        # url is not valid.
+                        pass
 
 
 if __name__ == '__main__':
