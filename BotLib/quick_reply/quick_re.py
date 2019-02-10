@@ -1,5 +1,7 @@
 from BotLib.utility.tag import Tags
 from BotLib.utility.util import Utility
+from ZathuraProject.zathura import Zathura
+from ZathuraProject.utility import Utility as ZathuraUtility
 
 class QuickReply():
     reference = "https://developers.facebook.com/docs/messenger-platform/reference/send-api/quick-replies/"
@@ -10,6 +12,8 @@ class QuickReply():
         """
         self.user_id = user_id
         self.utility = Utility()
+        self.zathura = Zathura()
+        self.zathura_utility = ZathuraUtility()
 
     def quick_reply(self, title: str, payload: list):
         """
@@ -19,14 +23,13 @@ class QuickReply():
         returns _quick_reply_complete_payload
         """
         validate = self.__quick_reply_payload_validation(payload)
-        function_name = self.quick_reply.__name__
         zathura_error_name = "quick_reply"
         if not validate:
-            self.utility.log_error(self.user_id, zathura_error_name, "quick reply payload invalid", function_name, 1)
+            self.zathura.insert_error_log(self.user_id, zathura_error_name, "quick reply payload invalid", self.zathura_utility.Tag_Log_ERROR)
             return
         
         if title is None or len(title) == 0:
-            self.utility.log_error(self.user_id, zathura_error_name, "quick reply title cannot be None or empty string", function_name, 1)
+            self.zathura.insert_error_log(self.user_id, zathura_error_name, "quick reply title cannot be None or empty string", self.zathura_utility.Tag_Log_ERROR)
             return
         message = {
             Tags.TAG_TEXT: title,
@@ -34,8 +37,9 @@ class QuickReply():
         }
         quick_reply_payload = self.utility._Utility__create_basic_recipient(self.user_id)
         quick_reply_payload[Tags.TAG_MESSAGE] = message
-        self.utility.log_debug(quick_reply_payload, function_name)
+        self.zathura.insert_debug_log(quick_reply_payload)
         return quick_reply_payload
+
 
     def quick_reply_payload_generator(self, title_text: list, payload: list, image_url: list,
                                       content_type: str = 'text'):
@@ -57,10 +61,11 @@ class QuickReply():
         Also, all of those list must be same size as well.
         returns quick_reply payloads
         """
+        error_name = 'quick_reply_payload'
         if content_type == 'text':
             quick_reply_payload = list()  # this is return payload
             if len(title_text) != len(payload) and len(payload) != len(image_url):
-                self.utility.log_error(self.user_id, 'quick_reply_payload', 'lists length did not match with each other', self.quick_reply_payload_generator.__name__, 3)
+                self.zathura.insert_error_log(self.user_id, error_name, 'lists length did not match with each other', self.zathura_utility.Tag_Log_ERROR)
                 return list()
             for index in range(0, len(title_text)):
                 _title = title_text[index]
@@ -68,24 +73,24 @@ class QuickReply():
                 _image_url = payload[index]
                 if len(_payload) > 1000:
                     # error - length of payload cannot exceed 1000 characters limit
-                    self.utility.log_error(self.user_id, 'quick_reply_payload', 'payload length is more 1000 chars', self.quick_reply_payload_generator.__name__, 3)
+                    self.zathura.insert_error_log(self.user_id, error_name, 'payload length is more 1000 chars', self.zathura_utility.Tag_Log_ERROR)
                     return list()
                 if len(_title) > 20:
                     # generate soft warning message. 
-                    self.utility.log_error(self.user_id, 'quick_reply_payload', 'title length is more 20 characters limit. Excess chars will be truncated!', self.quick_reply_payload_generator.__name__, 0)
+                    self.zathura.insert_error_log(self.user_id, error_name, 'title length is more 20 characters limit. Excess chars will be truncated!', self.zathura_utility.Tag_Log_WARNING)
                     continue  # this is a warning
                 if _title == '' and _image_url == '':
                     # generate error. both cannot be empty
-                    self.utility.log_error(self.user_id, 'quick_reply_payload', 'title and image_url both cannot be empty for the same object', self.quick_reply_payload_generator.__name__, 3)
+                    self.zathura.insert_error_log(self.user_id, error_name, 'title and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
                     return list()
                 if _payload == '' and _image_url == '':
                     # generate error, both cannot be empty
-                    self.utility.log_error(self.user_id, 'quick_reply_payload', 'payload and image_url both cannot be empty for the same object', self.quick_reply_payload_generator.__name__, 3)
+                    self.zathura.insert_error_log(self.user_id, error_name, 'payload and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
                     return list()
                 if len(_image_url) != 0:
                     # if there is any value in image_url then it would be checked
                     if not Utility.url_validation(_image_url):
-                        self.utility.log_error(self.user_id, 'quick_reply_payload', 'image url is not valid.', self.quick_reply_payload_generator.__name__, 3)
+                        self.zathura.insert_error_log(self.user_id, error_name, 'image url is not valid.', self.zathura_utility.Tag_Log_ERROR)
                         return list()
                 # All validation passed at this point.
                 quick_reply_payload.append({
@@ -97,7 +102,7 @@ class QuickReply():
         else:
             quick_reply_payload = list()  # this is return payload
             if len(title_text) != len(payload) and len(payload) != len(image_url):
-                self.utility.log_error(self.user_id, 'quick_reply_payload', 'lists length did not match with each other', self.quick_reply_payload_generator.__name__, 1)
+                self.zathura.insert_error_log(self.user_id, error_name, 'lists length did not match with each other', self.zathura_utility.Tag_Log_ERROR)
                 return list()
             for index in range(0, len(title_text)):
                 _title = title_text[index]
@@ -107,7 +112,7 @@ class QuickReply():
                 if len(_image_url) != 0:
                     # if there is any value in image_url then it would be checked
                     if not Utility.url_validation(_image_url):
-                        self.utility.log_error(self.user_id, 'quick_reply_payload', 'image url is not valid.', self.quick_reply_payload_generator.__name__, 3)
+                        self.zathura.insert_error_log(self.user_id, error_name, 'image url is not valid.', self.zathura_utility.Tag_Log_ERROR)
                         return list()
                 # if image_url is not valid, fb won't let you to post it anyway! better have no image_url for content type other than text
                 # All validation passed at this point.
@@ -119,17 +124,15 @@ class QuickReply():
                 })
         return quick_reply_payload
 
-
     def __quick_reply_payload_validation(self, payload: list):
         """
         this function validate the quick reply payload before sending it back to 
         calling function.
         """
-        zathura_error_name = "q_reply_payload_validation"
-        function_name = self.__quick_reply_payload_validation.__name__
+        error_name = "q_reply_payload_validation"
         if len(payload) > 11:
             # error - payload cannot have more than 11 items
-            self.utility.log_error(self.user_id, zathura_error_name, " A maximum of 11 quick replies are supported", function_name, 3)
+            self.zathura.insert_error_log(self.user_id, error_name, '"A maximum of 11 quick replies are supported"', self.zathura_utility.Tag_Log_ERROR)
             return False
         for items in payload:
             if Tags.TAG_CONTENT_TYPE_TEXT in items:
@@ -143,24 +146,74 @@ class QuickReply():
                     if _image_url is not None:
                         if not Utility.url_validation(_image_url):
                             # url is not valid
-                            self.utility.log_error(self.user_id, zathura_error_name, "image_url invalid", function_name, 3)
+                            self.zathura.insert_error_log(self.user_id, error_name, 'image_url invalid', self.zathura_utility.Tag_Log_ERROR)
                             return False
                     if _title is None and _image_url is None:
                         # error:
-                        self.utility.log_error(self.user_id, zathura_error_name, "title and image_url both are none", function_name, 3)
+                        self.zathura.insert_error_log(self.user_id, error_name, 'title and image_url both are none', self.zathura_utility.Tag_Log_ERROR)
                         return False
                     if _image_url is None and _payload is None:
                         # error
-                        self.utility.log_error(self.user_id, zathura_error_name, "payload and image_url both are none", function_name, 3)
+                        self.zathura.insert_error_log(self.user_id, error_name, 'payload and image_url both are none', self.zathura_utility.Tag_Log_ERROR)
                         return False
                 else:
                     if Tags.TAG_IMAGE_URL in items:
                         _image_url = items[Tags.TAG_IMAGE_URL]
                         if not Utility.url_validation(_image_url):
                             # url is not valid.
-                            self.utility.log_error(self.user_id, zathura_error_name, "url is not valid", function_name, 3)
+                            self.zathura.insert_error_log(self.user_id, error_name, 'url is not valid', self.zathura_utility.Tag_Log_ERROR)
                             return False
         return True
+
+    
+    def quick_reply_create(self,content_type: str, title_text: str = '', payload: str = '', image_url :str = ''):
+        """
+        generates a single entry payload for quick reply. It makes it easier to generate 
+        payload for quick reply
+        content_type: str text, location, user_phone_number, user_email
+        title_text: 1) contains titles of each field. maximum of 11 quick replies are supported.
+                    2) Required if content_type is 'text'. 
+                    3) The text to display on the quick reply button.
+                    4) 20 characters limit.
+        payload: 1) Required if content_type is 'text'. 
+                 2) Custom data that will be sent back to you via the messaging_postbacks webhook event.
+                 3) 1000 characters limit.
+                 4) May be set to an empty string if image_url is set.
+        image_url: 1) Optional. URL of image to display on the quick reply button for text quick replies.
+                   2) Image should be a minimum of 24px x 24px. Larger images will be automatically cropped and resized.
+                   3) Required if title is an empty string.
+        title_text, payload and image_url must have non zero list, if required set the value of every index to empty string to avoid confusion.
+        """
+        error_name = 'quick_reply_create'
+        if content_type == Tags.TAG_CONTENT_TYPE_TEXT:
+            if len(payload) > 1000:
+                # error - length of payload cannot exceed 1000 characters limit
+                self.zathura.insert_error_log(self.user_id, error_name, 'payload length is more 1000 chars', self.zathura_utility.Tag_Log_ERROR)
+                return {}
+            if len(title_text) > 20:
+                # generate soft warning message. 
+                self.zathura.insert_error_log(self.user_id, error_name, 'title length is more 20 characters limit. Excess chars will be truncated!', self.zathura_utility.Tag_Log_WARNING)
+                pass  # this is a warning
+            if title_text == '' and image_url == '':
+                # generate error. both cannot be empty
+                self.zathura.insert_error_log(self.user_id, error_name, 'title and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
+                return {}
+            if payload == '' and image_url == '':
+                # generate error, both cannot be empty
+                self.zathura.insert_error_log(self.user_id, error_name, 'payload and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
+                return {}
+            if len(image_url) != 0:
+                # if there is any value in image_url then it would be checked
+                if not Utility.url_validation(image_url):
+                    self.zathura.insert_error_log(self.user_id, error_name, 'image url is not valid.', self.zathura_utility.Tag_Log_ERROR)
+                    return {}
+        return {
+                Tags.TAG_CONTENT_TYPE_TEXT: content_type,
+                Tags.TAG_TITLE: title_text,
+                Tags.TAG_PAYLOAD: payload,
+                Tags.TAG_IMAGE_URL: image_url,
+            }
+
 
 
 if __name__ == '__main__':
