@@ -94,7 +94,7 @@ class QuickReply():
                         return list()
                 # All validation passed at this point.
                 quick_reply_payload.append({
-                    Tags.TAG_CONTENT_TYPE_TEXT: content_type,
+                    Tags.TAG_CONTENT_TYPE: content_type,
                     Tags.TAG_TITLE: _title,
                     Tags.TAG_PAYLOAD: _payload,
                     Tags.TAG_IMAGE_URL: _image_url,
@@ -117,7 +117,7 @@ class QuickReply():
                 # if image_url is not valid, fb won't let you to post it anyway! better have no image_url for content type other than text
                 # All validation passed at this point.
                 quick_reply_payload.append({
-                    Tags.TAG_CONTENT_TYPE_TEXT: content_type,
+                    Tags.TAG_CONTENT_TYPE: content_type,
                     Tags.TAG_TITLE: _title,  # not necessary
                     Tags.TAG_PAYLOAD: _payload,  # not necessary
                     Tags.TAG_IMAGE_URL: _image_url,  # not necessary
@@ -135,8 +135,8 @@ class QuickReply():
             self.zathura.insert_error_log(self.user_id, error_name, '"A maximum of 11 quick replies are supported"', self.zathura_utility.Tag_Log_ERROR)
             return False
         for items in payload:
-            if Tags.TAG_CONTENT_TYPE_TEXT in items:
-                _content_type = items[Tags.TAG_CONTENT_TYPE_TEXT]
+            if Tags.TAG_CONTENT_TYPE in items:
+                _content_type = items[Tags.TAG_CONTENT_TYPE]
                 if _content_type == 'text':
                     _title = items[Tags.TAG_TITLE] if Tags.TAG_TITLE in items else None
                     _payload = items[Tags.TAG_PAYLOAD] if Tags.TAG_PAYLOAD in items else None
@@ -165,7 +165,6 @@ class QuickReply():
                             return False
         return True
 
-    
     def quick_reply_create(self,content_type: str, title_text: str = '', payload: str = '', image_url :str = ''):
         """
         generates a single entry payload for quick reply. It makes it easier to generate 
@@ -208,7 +207,7 @@ class QuickReply():
                     self.zathura.insert_error_log(self.user_id, error_name, 'image url is not valid.', self.zathura_utility.Tag_Log_ERROR)
                     return {}
         return {
-                Tags.TAG_CONTENT_TYPE_TEXT: content_type,
+                Tags.TAG_CONTENT_TYPE: content_type,
                 Tags.TAG_TITLE: title_text,
                 Tags.TAG_PAYLOAD: payload,
                 Tags.TAG_IMAGE_URL: image_url,
