@@ -1,6 +1,6 @@
 import unittest
 from BotLib.quick_reply.quick_re import QuickReply
-from .send_message import Facebook
+from Tests.send_message import Facebook
 
 
 class TestQuickReply(unittest.TestCase):
@@ -35,6 +35,8 @@ class TestQuickReply(unittest.TestCase):
                             "Test_1_You shall not PASSSSSSSS")
         self.assertEqual(type(test_2_quick_reply_payload), dict,
                          "Test_2_This is suppose to be a dictionary to be passed!")
+        status_code = self.facebook.send_message(test_1_quick_reply_payload)
+        self.assertEqual(status_code, 400, "This better be 400 or something like that!")
         status_code = self.facebook.send_message(test_2_quick_reply_payload)
         self.assertEqual(status_code, 200, "This better be 200!")
 
