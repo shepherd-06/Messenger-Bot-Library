@@ -2,11 +2,12 @@ import re
 from BotLib.utility.tag import Tags
 from ZathuraProject.zathura import Zathura
 
+
 class Utility:
 
     def __init__(self):
         pass
-    
+
     @staticmethod
     def url_validation(url: str):
         """
@@ -15,12 +16,13 @@ class Utility:
         :returns bool
         """
         regex = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-        r'localhost|' #localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?' # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            r'^(?:http|ftp)s?://'  # http:// or https://
+            # domain...
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
+            r'localhost|'  # localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+            r'(?::\d+)?'  # optional port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
         return re.match(regex, url)
 
     @staticmethod
@@ -35,7 +37,7 @@ class Utility:
             }
         }
 
-    def __typing_on(self, user_id: str, waiting_period:float =1.5):
+    def __typing_on(self, user_id: str, waiting_period: float = 1.5):
         """
         private function, turns on typing function, sleep 3s before doing anything else.
         :param user_id:
@@ -55,7 +57,7 @@ class Utility:
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_MARK_SEEN
         return payload
 
-    def basic_text_reply_payload(self, user_id:str, message:str, typing_on:float = 1.5):
+    def basic_text_reply_payload(self, user_id: str, message: str, typing_on: float = 1.5):
         """
         this functions generates the payload for basic text reply
         :param waiting_period: how long will the typing_on display run, default is 1.5 seconds
@@ -64,14 +66,14 @@ class Utility:
         :return: payload
         """
         payload = {
-                Tags.TAG_RECIPIENT: {
-                    Tags.TAG_ID: user_id
-                },
-                Tags.TAG_MESSAGE: {
-                    Tags.TAG_TEXT: message
-                }
+            Tags.TAG_RECIPIENT: {
+                Tags.TAG_ID: user_id
+            },
+            Tags.TAG_MESSAGE: {
+                Tags.TAG_TEXT: message
             }
-        return payload    
+        }
+        return payload
 
 
 # if __name__ == '__main__':
