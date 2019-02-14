@@ -10,8 +10,7 @@ install:
 # command to run tests
 
 script:
-  - export FLASK_APP=Tests/send_message.py
-  - export FLASK_ENV=development
   - python3 -m unittest Tests.test_quick_reply
   - python3 -m unittest Tests.test_basic
+  - python3 -m unittest Tests.test_button_template
   

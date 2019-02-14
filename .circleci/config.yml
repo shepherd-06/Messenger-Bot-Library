@@ -48,9 +48,9 @@ jobs:
           name: Running UnitTests
           command: |
             . venv/bin/activate
-            export FLASK_APP=Tests/send_message.py
-            export FLASK_ENV=development
             python3 -m unittest Tests.test_quick_reply
+            python3 -m unittest Tests.test_basic
+            python3 -m unittest Tests.test_button_template
 
       - store_artifacts:
           path: test-reports

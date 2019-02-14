@@ -28,7 +28,24 @@ class Utility:
         return re.match(regex, url)
 
     @staticmethod
-    def __create_basic_recipient(user_id: str):
+    def https_url_validation(url: str):
+        """
+        url validation takes a str to be matched against regex.
+        :url the url in str
+        :returns bool
+        """
+        regex = re.compile(
+            r'^(?:https|ftps)?://'  # http:// or https://
+            # domain...
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
+            r'localhost|'  # localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+            r'(?::\d+)?'  # optional port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+        return re.match(regex, url)
+
+    @staticmethod
+    def create_basic_recipient(user_id: str):
         """
         :param user_id: facebook users user id.
         :return: creates the receipients payload
@@ -45,7 +62,7 @@ class Utility:
         :param user_id:
         :return: returns the payload for typing_on function
         """
-        payload = self.__create_basic_recipient(user_id)
+        payload = self.create_basic_recipient(user_id)
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_TYPING_ON
         return payload
 
@@ -55,7 +72,7 @@ class Utility:
         :param user_id: facebook user id
         :return: payload to create a mark_seen on facebook messenger platform
         """
-        payload = self.__create_basic_recipient(user_id)
+        payload = self.create_basic_recipient(user_id)
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_MARK_SEEN
         return payload
 

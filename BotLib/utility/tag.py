@@ -34,3 +34,12 @@ class Tags:
     TAG_MESSENGER_EXTENSION = 'messenger_extensions'
     TAG_WEBVIEW_HEIGHT_RATIO = 'webview_height_ratio'
     TAG_TEMPLATE_TYPE_GENERIC = 'generic'
+    TAG_FALLBACK_URL = 'fallback_url'
+    TAG_WEBVIEW_SHARE_BUTTON = 'webview_share_button'
+
+    TAG_WEBVIEW_HEIGHT_RATIO_COMAPCT = 'compact'
+    TAG_WEBVIEW_HEIGHT_RATIO_TALL = 'tall'
+    TAG_WEBVIEW_HEIGHT_RATIO_FULL = 'full'
+
+    TAG_SHARE_HIDE = 'hide'
+    TAG_SHARE_SHOW = 'show'
