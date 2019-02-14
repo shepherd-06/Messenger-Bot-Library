@@ -1,12 +1,14 @@
 import re
 from BotLib.utility.tag import Tags
 from ZathuraProject.zathura import Zathura
+from ZathuraProject.utility import Utility as zathura_utility
 
 
 class Utility:
 
     def __init__(self):
-        pass
+        self.zathura = Zathura()
+        self.z_utility = zathura_utility()
 
     @staticmethod
     def url_validation(url: str):
@@ -37,7 +39,7 @@ class Utility:
             }
         }
 
-    def __typing_on(self, user_id: str, waiting_period: float = 1.5):
+    def typing_on(self, user_id: str, waiting_period: float = 1.5):
         """
         private function, turns on typing function, sleep 3s before doing anything else.
         :param user_id:
@@ -57,14 +59,18 @@ class Utility:
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_MARK_SEEN
         return payload
 
-    def basic_text_reply_payload(self, user_id: str, message: str, typing_on: float = 1.5):
+    def basic_text_reply_payload(self, user_id: str, message: str):
         """
         this functions generates the payload for basic text reply
-        :param waiting_period: how long will the typing_on display run, default is 1.5 seconds
         :param user_id: user_id of a particular user_id
         :param message: message user going to see
         :return: payload
         """
+        if message is None or len(message) > 2000:
+            self.zathura.insert_error_log(user=user_id, error_name="message length exceeds limit or None",
+                                          error_description="Either message length exceeds 2000 characters limit or None. Message: {}".format(message), warning=self.z_utility.Tag_Log_ERROR)
+            return None
+
         payload = {
             Tags.TAG_RECIPIENT: {
                 Tags.TAG_ID: user_id
@@ -74,9 +80,3 @@ class Utility:
             }
         }
         return payload
-
-
-# if __name__ == '__main__':
-#     util = Utility()
-#     x = util.basic_text_reply_payload('1234', 'dfsdf')
-#     print(x)

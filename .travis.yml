@@ -14,3 +14,5 @@ script:
   - export FLASK_ENV=development
   - flask run 
   - python3 -m unittest Tests.test_quick_reply
+  - python3 -m unittest Tests.test_basic
+  
