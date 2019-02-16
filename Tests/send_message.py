@@ -25,7 +25,8 @@ class Facebook:
             else:
                 response = requests.post(self.__reply_url, json=payload)
             if response.status_code != 200:
-                self.zathura.insert_error_log("facebook", "send_message - {}".format(response.status_code), "Message - {}".format(response.text), warning=5)
+                self.zathura.insert_error_log("facebook", "send_message - {}".format(
+                    response.status_code), "Message - {}".format(response.text), warning=5)
             return response.status_code
         except Exception as error:
             print("Error occurred {}".format(error))
@@ -43,10 +44,4 @@ def index():
                 status_code=status.HTTP_401_UNAUTHORIZED,
             )
     else:
-        # import json
-        # incoming_message = json.loads((request.data).decode("utf-8"))
-        # print(incoming_message)
-        # return jsonify(
-        #     status_code=status.HTTP_200_OK,
-        # )
         return '', status.HTTP_200_OK
