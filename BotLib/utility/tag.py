@@ -45,3 +45,4 @@ class Tags:
     TAG_SHARE_SHOW = 'show'
 
     TAG_WHITELISTED_DOMAINS = 'whitelisted_domains'
+    TAG_PHONE_NUMEBR = "phone_number"

@@ -107,7 +107,7 @@ class Button(MotherClass):
         For example, you might display a list of products,
         then send the product ID in the postback to your webhook,
         where it can be used to query your database and return the product details as a structured message.
-        
+
         The postback button is supported for use with the following:
         - Persistent menu
         - Generic template
@@ -122,25 +122,79 @@ class Button(MotherClass):
 
         if title is None or title == '':
             # Error
-            self.zathura.insert_error_log(user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
+            self.zathura.insert_error_log(
+                user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
             return
 
         if len(title) > 20:
-            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(title), warning=self.zathura_utility.Tag_Log_WARNING)
+            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(
+                title), warning=self.zathura_utility.Tag_Log_WARNING)
             pass
 
         if payload is None or payload == '':
             # Error
-            self.zathura.insert_error_log(user, "payload", "payload is None or empty string. Payload: {}".format(payload), warning=4)
+            self.zathura.insert_error_log(
+                user, "payload", "payload is None or empty string. Payload: {}".format(payload), warning=4)
             return
-        
+
         if len(payload) > 1000:
-            # Error 
-            self.zathura.insert_error_log(user, "payload", "payload is more than 1000 chars long. Payload: {}".format(payload), warning=4)
+            # Error
+            self.zathura.insert_error_log(
+                user, "payload", "payload is more than 1000 chars long. Payload: {}".format(payload), warning=4)
             return
-        
+
         return {
             Tags.TAG_TYPE: Tags.TAG_POSTBACK,
             Tags.TAG_TITLE: title,
             Tags.TAG_PAYLOAD: payload,
+        }
+
+    def create_call_button(self, title: str, phone_number: str):
+        """
+        Reference: https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call
+        The call button dials a phone number when tapped. Phone number should be in the format +<COUNTRY_CODE><PHONE_NUMBER>, e.g. +15105559999.
+        The call button is supported for use with the following:
+        - Generic template
+        - List template
+        - Button template
+        - Media template
+        :title :str Button title, 20 character limit.
+        :phone_number :str Format must have "+" prefix followed by the country code, area code and local number. For example, +16505551234.
+        """
+        import phonenumbers
+        user = "create_log_in_button"
+
+        if title is None or title == '':
+            # Error
+            self.zathura.insert_error_log(
+                user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
+            return
+
+        if len(title) > 20:
+            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(
+                title), warning=self.zathura_utility.Tag_Log_WARNING)
+            pass
+
+        if phone_number is None or phone_number == '':
+            # Error
+            self.zathura.insert_error_log(
+                user, "phone_number", "phone_number is None or empty string. phone_number: {}".format(phone_number), warning=4)
+            return
+        try:
+            _phone_number = phonenumbers.parse(phone_number, None)
+        except phonenumbers.phonenumberutil.NumberParseException:
+            self.zathura.insert_error_log(
+                user, "phone_number", "Missing or invalid default region. Phone number: {}".format(phone_number), warning=4)
+            return
+        
+        if not phonenumbers.is_valid_number(_phone_number):
+            # Error
+            self.zathura.insert_error_log(
+                user, "phone_number", "phone_number is not valid: {}".format(phone_number), warning=4)
+            return
+        
+        return {
+            Tags.TAG_TYPE: Tags.TAG_PHONE_NUMEBR,
+            Tags.TAG_TITLE: title,
+            Tags.TAG_PAYLOAD: phone_number,
         }
