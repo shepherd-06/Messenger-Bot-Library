@@ -43,3 +43,5 @@ class Tags:
 
     TAG_SHARE_HIDE = 'hide'
     TAG_SHARE_SHOW = 'show'
+
+    TAG_WHITELISTED_DOMAINS = 'whitelisted_domains'

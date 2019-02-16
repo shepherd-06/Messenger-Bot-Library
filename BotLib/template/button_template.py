@@ -26,8 +26,8 @@ class ButtonTemplate(MotherClass):
         if len(title_text) > 640:
             # Probably Warning
             self.zathura.insert_error_log(self.user_id, "title", "Length of title text is more 640 chars. Title {}".format(
-                len(title_text)), self.zathura_utility.Tag_Log_WARNING)
-            pass
+                len(title_text)), self.zathura_utility.Tag_Log_ERROR)
+            return
 
         if buttons is None or len(buttons) == 0:
             # Error

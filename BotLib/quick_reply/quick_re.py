@@ -42,7 +42,7 @@ class QuickReply():
             Tags.TAG_TEXT: title,
             Tags.TAG_QUICK_REPLIES: payload,
         }
-        quick_reply_payload = self.utility._Utility__create_basic_recipient(
+        quick_reply_payload = self.utility.create_basic_recipient(
             self.user_id)
         quick_reply_payload[Tags.TAG_MESSAGE] = message
         self.zathura.insert_debug_log(quick_reply_payload)

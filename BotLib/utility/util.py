@@ -97,3 +97,9 @@ class Utility:
             }
         }
         return payload
+
+    @staticmethod
+    def whitelist_domain(url):
+        return {
+            Tags.TAG_WHITELISTED_DOMAINS: url,
+        }

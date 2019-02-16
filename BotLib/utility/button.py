@@ -2,11 +2,13 @@ from ZathuraProject.zathura import Zathura
 from ZathuraProject.utility import Utility as zathura_utility
 from BotLib.utility.util import Utility
 from BotLib.utility.tag import Tags
+from BotLib.utility.mother import MotherClass
 
 
-class Button:
+class Button(MotherClass):
 
     def __init__(self):
+        super().__init__()
         self.zathura = Zathura()
         self.z_util = zathura_utility()
         self.utility = Utility()
@@ -74,24 +76,30 @@ class Button:
             if not self.utility.https_url_validation(fallback_url):
                 # Error
                 self.zathura.insert_error_log(
-                    user
-        , "fallback_url", "Fallback url has to be HTTPS if messenger_extensions is True. fallback_url: {}".format(fallback_url), self.z_util.Tag_Log_ERROR)
+                    user, "fallback_url", "Fallback url has to be HTTPS if messenger_extensions is True. fallback_url: {}".format(fallback_url), self.z_util.Tag_Log_ERROR)
 
                 return
 
-        if webview_share_button in (Tags.TAG_SHARE_HIDE, Tags.TAG_SHARE_SHOW):
+        if not webview_share_button in (Tags.TAG_SHARE_HIDE, Tags.TAG_SHARE_SHOW):
             # Error
             self.zathura.insert_error_log(
                 user, "webview_share_button", "webview_share_button value did not match the values required. Its either hide | show. webview_share_button: {}".format(webview_share_button), self.z_util.Tag_Log_ERROR)
             return
-
-        return {
-            Tags.TAG_TYPE: Tags.TAG_WEB_URL,
-            Tags.TAG_URL: url,
-            Tags.TAG_TITLE: title,
-            Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
-            Tags.TAG_MESSENGER_EXTENSION: messenger_extensions,
-            Tags.TAG_FALLBACK_URL: fallback_url,
-            Tags.TAG_WEBVIEW_SHARE_BUTTON: webview_share_button,
-        }
-
+        if messenger_extensions:
+            # These fields will only required if the messenger_extension is TRUE!
+            self.logger.warning("Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
+            return {
+                Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                Tags.TAG_URL: url,
+                Tags.TAG_TITLE: title,
+                Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+                Tags.TAG_MESSENGER_EXTENSION: messenger_extensions,
+                Tags.TAG_FALLBACK_URL: fallback_url,
+            }
+        else:
+            return {
+                Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                Tags.TAG_URL: url,
+                Tags.TAG_TITLE: title,
+                Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+            }
