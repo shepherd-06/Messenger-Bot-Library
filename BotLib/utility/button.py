@@ -198,3 +198,20 @@ class Button(MotherClass):
             Tags.TAG_TITLE: title,
             Tags.TAG_PAYLOAD: phone_number,
         }
+
+    def create_share_button(self, share_contents: dict = None):
+        """
+        Reference: https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share
+        The share button allows the message recipient to share the content of a message you sent with others on Messenger. The name and icon of your Page appear as an attribution at the top of the shared content.
+        The attribution opens a conversation with your bot when tapped.
+        With the share button, you can share the exact message or specify a new generic template message in the share_contents property.
+        If you specify a new generic template, the message recipient will be able to add a message to the share. This is useful if you want change the look or add content to the original message.
+
+        The share button is supported for use with the following:
+        - Generic template
+        - List template
+        - Media template
+
+        :share_contents: dict For share buttons using the element_share feature, only the <generic template> with [[ one URL button ]] is supported.
+        """
+        pass
