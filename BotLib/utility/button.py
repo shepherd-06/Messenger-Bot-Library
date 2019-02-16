@@ -87,7 +87,8 @@ class Button(MotherClass):
             return
         if messenger_extensions:
             # These fields will only required if the messenger_extension is TRUE!
-            self.logger.warning("Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
+            self.logger.warning(
+                "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
             return {
                 Tags.TAG_TYPE: Tags.TAG_WEB_URL,
                 Tags.TAG_URL: url,
