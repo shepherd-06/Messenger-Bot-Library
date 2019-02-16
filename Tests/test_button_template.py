@@ -12,6 +12,7 @@ class TestButtonTemplate(unittest.TestCase):
         self.facebook = Facebook()
         self.template = ButtonTemplate("1475588502509679")
         self.url = "https://adventures.is/wp-content/uploads/2017/06/eyjafjallajokull-glacier-volcano-iceland1.jpg"
+        self.postback_payload = "Chaite Paro 3"
     
     @classmethod
     def tearDownClass(self):
@@ -80,6 +81,53 @@ class TestButtonTemplate(unittest.TestCase):
         buttons.append(self.button.create_url_button(title, self.url))
         self.assertEqual(type(buttons[0]), type(dict()), "Must nt block")
         title_text = "test_button_template_with_web_url - Test 5 - {}".format(1)
+        button_payload = self.template.button_template(title_text, buttons)
+        status_code = self.facebook.send_message(button_payload)
+        self.assertEqual(status_code, 200, "Suppose to work again!")
+
+    
+    def test_6_button_template_with_postback(self):
+        buttons = list()
+        title = "Test 6 - {}".format(1)
+        buttons.append(self.button.create_postback_button(title, self.postback_payload))
+        self.assertEqual(type(buttons[0]), type(dict()), "Must nt block")
+        title_text = "test_button_template_with_postback - Test 6 - {}".format(1)
+        button_payload = self.template.button_template(title_text, buttons)
+        status_code = self.facebook.send_message(button_payload)
+        self.assertEqual(status_code, 200, "Suppose to work again!")
+
+    def test_7_button_template_with_postback(self):
+        buttons = list()
+        title = "Test 7 - {}".format(1)
+        title += ("A" * 20)
+        buttons.append(self.button.create_postback_button(title, self.postback_payload))
+        self.assertEqual(type(buttons[0]), type(dict()), "Must nt block")
+        title_text = "test_button_template_with_postback - Test 7 - {}".format(1)
+        button_payload = self.template.button_template(title_text, buttons)
+        status_code = self.facebook.send_message(button_payload)
+        self.assertEqual(status_code, 200, "Suppose to work again!")
+
+    def test_8_button_template_with_postback(self):
+        buttons = list()
+        title = "Test 8 - {}".format(1)
+        _postback_payload = self.postback_payload + ("A" * 2000)
+        buttons.append(self.button.create_postback_button(title, _postback_payload))
+        self.assertEqual(type(buttons[0]), type(None), "Must nt block")
+        title_text = "test_button_template_with_postback - Test 8 - {}".format(1)
+        button_payload = self.template.button_template(title_text, buttons)
+        status_code = self.facebook.send_message(button_payload)
+        self.assertEqual(status_code, 400, "Suppose to NOT work again!")
+
+    def test_9_button_template_with_postback(self):
+        buttons = list()
+        title = "Test 9 Postback - {}".format(1)
+        buttons.append(self.button.create_postback_button(title, self.postback_payload))
+        self.assertEqual(type(buttons[0]), type(dict()), "Must nt block")
+        for _ in range(0, 2):
+            title = "Test 9 WebURL - {}".format(_)
+            buttons.append(self.button.create_url_button(title, self.url))
+        
+        title_text = "test_button_template_with_postback - Test 9 - {}".format(1)
         button_payload = self.template.button_template(title_text, buttons)
         status_code = self.facebook.send_message(button_payload)
         self.assertEqual(status_code, 200, "Suppose to work again!")

@@ -98,3 +98,49 @@ class Button(MotherClass):
                 Tags.TAG_TITLE: title,
                 Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
             }
+
+    def create_postback_button(self, title: str, payload: str):
+        """
+        Reference: https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback
+        The postback button sends a messaging_postbacks event to your webhook with the string set in the payload property.
+        This allows you to take an arbitrary actions when the button is tapped.
+        For example, you might display a list of products,
+        then send the product ID in the postback to your webhook,
+        where it can be used to query your database and return the product details as a structured message.
+        
+        The postback button is supported for use with the following:
+        - Persistent menu
+        - Generic template
+        - List template
+        - Button template
+        - Media template
+
+        :title :str - Button title. 20 character limit.
+        :payload :str - This data will be sent back to your webhook. 1000 character limit.
+        """
+        user = "create_postback_button"
+
+        if title is None or title == '':
+            # Error
+            self.zathura.insert_error_log(user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
+            return
+
+        if len(title) > 20:
+            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(title), warning=self.zathura_utility.Tag_Log_WARNING)
+            pass
+
+        if payload is None or payload == '':
+            # Error
+            self.zathura.insert_error_log(user, "payload", "payload is None or empty string. Payload: {}".format(payload), warning=4)
+            return
+        
+        if len(payload) > 1000:
+            # Error 
+            self.zathura.insert_error_log(user, "payload", "payload is more than 1000 chars long. Payload: {}".format(payload), warning=4)
+            return
+        
+        return {
+            Tags.TAG_TYPE: Tags.TAG_POSTBACK,
+            Tags.TAG_TITLE: title,
+            Tags.TAG_PAYLOAD: payload,
+        }
