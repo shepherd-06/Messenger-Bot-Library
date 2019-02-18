@@ -46,3 +46,7 @@ class Tags:
 
     TAG_WHITELISTED_DOMAINS = 'whitelisted_domains'
     TAG_PHONE_NUMEBR = "phone_number"
+    TAG_IMAGE_ASPECT_RATIO_HR = "horizontal"
+    TAG_IMAGE_ASPECT_RATIO_SQ = "square"
+    TAG_SHAREABLE = "sharable"
+    TAG_IMAGE_ASPECT_RATIO = "image_aspect_ratio"

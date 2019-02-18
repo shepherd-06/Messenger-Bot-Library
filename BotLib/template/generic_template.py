@@ -9,6 +9,58 @@ class GenericTemplate(MotherClass):
         self.user_id = facebook_user_id
         self.btn_validation = ButtonValidation()
 
+    def generic_template(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
+        """
+        https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
+        The generic template allows you to send a structured message that includes an image, text and buttons.
+        A generic template with multiple templates described in the elements array will send a horizontally
+        scrollable carousel of items, each composed of an image, text and buttons.
+        :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
+        :sharable: bool 	Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false.
+        :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+        """
+        if elements is None or len(elements) == 0:
+            # Error
+            pass
+        if len(elements) > 10:
+            # Error
+            pass
+
+        if image_aspect_ratio not in (self.tags.TAG_IMAGE_ASPECT_RATIO_SQ, self.tags.TAG_IMAGE_ASPECT_RATIO_HR):
+            # Error
+            pass
+
+        # Check & Validate every single elements object
+        for element in elements:
+            if not self.validate_generic_element(element):
+                # Error - Not validated
+                pass
+
+        payload = {
+            self.tags.TAG_TEMPLATE_TYPE: self.tags.TAG_TEMPLATE_TYPE_GENERIC,
+            self.tags.TAG_SHAREABLE: shareable,
+            self.tags.TAG_IMAGE_ASPECT_RATIO: image_aspect_ratio,
+            self.tags.TAG_ELEMENTS: elements
+        }
+
+        message = {
+            self.tags.TAG_ATTACHMENT: {
+                self.tags.TAG_TYPE: self.tags.TAG_TEMPLATE,
+                self.tags.TAG_PAYLOAD: payload
+            }
+        }
+        generic_payload = self.utility.create_basic_recipient(self.user_id)
+        generic_payload[self.tags.TAG_MESSAGE] = message
+        return generic_payload
+
+    def validate_generic_element(self, element: dict):
+        """
+        Validate the generic elements object against the requirements mentioned on facebook doc.
+        :element: dict has to be a fucking dictionary !!.
+        :returns :bool success is True: DUH!
+        """
+        pass
+
     def create_single_generic_elements(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):
         """
         An array of element objects that describe instances of the generic template to be sent.
@@ -49,7 +101,8 @@ class GenericTemplate(MotherClass):
             # buttons validation
             if len(buttons) > 3:
                 # Error
-                self.zathura.insert_error_log(self.user_id, "generic_elements_create", "At max 3 buttons is allowed for generic template. Current Buttons: {}".format(len(buttons)), self.zathura_utility.Tag_Log_ERROR)
+                self.zathura.insert_error_log(self.user_id, "generic_elements_create", "At max 3 buttons is allowed for generic template. Current Buttons: {}".format(
+                    len(buttons)), self.zathura_utility.Tag_Log_ERROR)
                 return
             for btn in buttons:
                 if not self.btn_validation.button_validation(btn):
@@ -57,9 +110,10 @@ class GenericTemplate(MotherClass):
                     pass
         if default_action is None and buttons is None:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_elements_create", "Both default actions and buttons cannot be None. At least one button element or default action must be mentioned.", self.zathura_utility.Tag_Log_ERROR)
+            self.zathura.insert_error_log(self.user_id, "generic_elements_create",
+                                          "Both default actions and buttons cannot be None. At least one button element or default action must be mentioned.", self.zathura_utility.Tag_Log_ERROR)
             return
-        
+
         # All validation filtered through. OoooooOOooooooO
         return {
             self.tags.TAG_TITLE: title,
