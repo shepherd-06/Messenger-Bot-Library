@@ -7,7 +7,7 @@ class Button(MotherClass):
     def __init__(self):
         super().__init__()
 
-    def create_url_button(self, title: str, url: str, webview_height_ratio: str = "full", messenger_extensions: bool = False, fallback_url: str = '', webview_share_button: str = 'hide'):
+    def create_url_button(self, title: str, url: str, webview_height_ratio: str = "full", messenger_extensions: bool = False, fallback_url: str = '', webview_share_button: str = 'hide', is_default_action: bool = False):
         """
         Reference: https://developers.facebook.com/docs/messenger-platform/reference/buttons/url
         Supported usage:
@@ -26,16 +26,17 @@ class Button(MotherClass):
         :returns a dictionary in the format for web_url button template
         """
         user = "create_url_button"
-        if title is None or len(title) <= 0:
-            self.zathura.insert_error_log(user, "title", "title is None or len is zero. Title: {}".format(
-                title), self.zathura_utility.Tag_Log_ERROR)
-            return
+        if not is_default_action:
+            if title is None or len(title) <= 0:
+                self.zathura.insert_error_log(user, "title", "title is None or len is zero. Title: {}".format(
+                    title), self.zathura_utility.Tag_Log_ERROR)
+                return
 
-        if len(title) > 20:
-            # Error / Warning
-            self.zathura.insert_error_log(user, "title", "title len is more than 20. Title: {}".format(
-                title), self.zathura_utility.Tag_Log_WARNING)
-            pass
+            if len(title) > 20:
+                # Error / Warning
+                self.zathura.insert_error_log(user, "title", "title len is more than 20. Title: {}".format(
+                    title), self.zathura_utility.Tag_Log_WARNING)
+                pass
 
         if url is None or len(url) <= 0:
             # Error
@@ -79,25 +80,44 @@ class Button(MotherClass):
             self.zathura.insert_error_log(
                 user, "webview_share_button", "webview_share_button value did not match the values required. Its either hide | show. webview_share_button: {}".format(webview_share_button), self.zathura_utility.Tag_Log_ERROR)
             return
-        if messenger_extensions:
-            # These fields will only required if the messenger_extension is TRUE!
-            self.logger.warning(
-                "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
-            return {
-                Tags.TAG_TYPE: Tags.TAG_WEB_URL,
-                Tags.TAG_URL: url,
-                Tags.TAG_TITLE: title,
-                Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
-                Tags.TAG_MESSENGER_EXTENSION: messenger_extensions,
-                Tags.TAG_FALLBACK_URL: fallback_url,
-            }
+        if is_default_action:
+            if messenger_extensions:
+                # These fields will only required if the messenger_extension is TRUE!
+                self.logger.warning(
+                    "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
+                return {
+                    Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                    Tags.TAG_URL: url,
+                    Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+                    Tags.TAG_MESSENGER_EXTENSION: messenger_extensions,
+                    Tags.TAG_FALLBACK_URL: fallback_url,
+                }
+            else:
+                return {
+                    Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                    Tags.TAG_URL: url,
+                    Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+                }
         else:
-            return {
-                Tags.TAG_TYPE: Tags.TAG_WEB_URL,
-                Tags.TAG_URL: url,
-                Tags.TAG_TITLE: title,
-                Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
-            }
+            if messenger_extensions:
+                # These fields will only required if the messenger_extension is TRUE!
+                self.logger.warning(
+                    "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else message won't be sent!")
+                return {
+                    Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                    Tags.TAG_URL: url,
+                    Tags.TAG_TITLE: title,
+                    Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+                    Tags.TAG_MESSENGER_EXTENSION: messenger_extensions,
+                    Tags.TAG_FALLBACK_URL: fallback_url,
+                }
+            else:
+                return {
+                    Tags.TAG_TYPE: Tags.TAG_WEB_URL,
+                    Tags.TAG_URL: url,
+                    Tags.TAG_TITLE: title,
+                    Tags.TAG_WEBVIEW_HEIGHT_RATIO: webview_height_ratio,
+                }
 
     def create_postback_button(self, title: str, payload: str):
         """
