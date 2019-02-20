@@ -16,7 +16,7 @@ class GenericTemplate(MotherClass):
         A generic template with multiple templates described in the elements array will send a horizontally
         scrollable carousel of items, each composed of an image, text and buttons.
         :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
-        :sharable: bool 	Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false.
+        :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
         :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
         """
         if elements is None or len(elements) == 0:
@@ -71,6 +71,8 @@ class GenericTemplate(MotherClass):
         :element: dict has to be a fucking dictionary !!.
         :returns :bool success is True: DUH!
         """
+        if element is None:
+            return False
         title = element[self.tags.TAG_TITLE] if self.tags.TAG_TITLE in element else None
         subtitle = element[self.tags.TAG_SUBTITLE] if self.tags.TAG_SUBTITLE in element else None
         image_url = element[self.tags.TAG_IMAGE_URL] if self.tags.TAG_IMAGE_URL in element else None
@@ -83,15 +85,13 @@ class GenericTemplate(MotherClass):
                 title), self.zathura_utility.Tag_Log_ERROR)
             return False
         if len(title) > 80:
-            # Error
+            # Not Error. Bt Extra chars will be trimmed off
             self.zathura.insert_error_log(self.user_id, error_name, "Title length is more than 80 chars limit. Title: {}".format(
-                len(title)), self.zathura_utility.Tag_Log_WARNING)
-            pass
+                len(title)), self.zathura_utility.Tag_Log_INFO)
         if len(subtitle) > 80:
-            # Error
+            # Not Error. Bt Extra chars will be trimmed off
             self.zathura.insert_error_log(self.user_id, error_name, "Subtitle length is more than 80 chars limit. Subtitle: {}".format(
-                len(subtitle)), self.zathura_utility.Tag_Log_WARNING)
-            pass
+                len(subtitle)), self.zathura_utility.Tag_Log_INFO)
         if image_url is not None:
             # Url validation
             if not (self.utility.url_validation(image_url)):
