@@ -206,13 +206,13 @@ class Button(MotherClass):
             self.zathura.insert_error_log(
                 user, "phone_number", "Missing or invalid default region. Phone number: {}".format(phone_number), warning=4)
             return
-        
+
         if not phonenumbers.is_valid_number(_phone_number):
             # Error
             self.zathura.insert_error_log(
                 user, "phone_number", "phone_number is not valid: {}".format(phone_number), warning=4)
             return
-        
+
         return {
             Tags.TAG_TYPE: Tags.TAG_PHONE_NUMEBR,
             Tags.TAG_TITLE: title,

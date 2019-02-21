@@ -18,6 +18,7 @@ class GenericTemplate(MotherClass):
         :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
         :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
         :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+        Its okay to share without any subtitle and image_url
         """
         if elements is None or len(elements) == 0:
             # Error
@@ -45,7 +46,8 @@ class GenericTemplate(MotherClass):
         for element in elements:
             if not self.validate_generic_element(element):
                 # Error - Not validated
-                self.zathura.insert_error_log(self.user_id, "generic_template", "Element did not pass validation", self.zathura_utility.Tag_Log_ERROR)
+                self.zathura.insert_error_log(
+                    self.user_id, "generic_template", "Element did not pass validation", self.zathura_utility.Tag_Log_ERROR)
                 return None
 
         payload = {
@@ -88,10 +90,11 @@ class GenericTemplate(MotherClass):
             # Not Error. Bt Extra chars will be trimmed off
             self.zathura.insert_error_log(self.user_id, error_name, "Title length is more than 80 chars limit. Title: {}".format(
                 len(title)), self.zathura_utility.Tag_Log_INFO)
-        if len(subtitle) > 80:
-            # Not Error. Bt Extra chars will be trimmed off
-            self.zathura.insert_error_log(self.user_id, error_name, "Subtitle length is more than 80 chars limit. Subtitle: {}".format(
-                len(subtitle)), self.zathura_utility.Tag_Log_INFO)
+        if subtitle is not None:
+            if len(subtitle) > 80:
+                # Not Error. Bt Extra chars will be trimmed off
+                self.zathura.insert_error_log(self.user_id, error_name, "Subtitle length is more than 80 chars limit. Subtitle: {}".format(
+                    len(subtitle)), self.zathura_utility.Tag_Log_INFO)
         if image_url is not None:
             # Url validation
             if not (self.utility.url_validation(image_url)):
@@ -99,6 +102,10 @@ class GenericTemplate(MotherClass):
                 self.zathura.insert_error_log(self.user_id, error_name, "Image url is not valid. image_url: {}".format(
                     len(image_url)), self.zathura_utility.Tag_Log_WARNING)
                 return False
+
+        if image_url is None and subtitle is None:
+            self.logger.info(
+                "It would be better for the users if you add a subtitle or an image_url. It's better for the story you are trying to tell.")
         if default_action is not None:
             # button validation
             if not self.btn_validation.button_validation(default_action, self.tags.TAG_WEB_URL):
@@ -121,9 +128,8 @@ class GenericTemplate(MotherClass):
                     return False
         if default_action is None and buttons is None:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_elements_create",
-                                          "Both default actions and buttons cannot be None. At least one button element or default action must be mentioned.", self.zathura_utility.Tag_Log_ERROR)
-            return False
+            self.logger.info(
+                "You can create a generic element without any default action or buttons. However, wouldn't it be wiser if user actually able to click and do something with that card?")
         return True
 
     def create_single_generic_elements(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):
