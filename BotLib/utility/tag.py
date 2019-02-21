@@ -50,3 +50,5 @@ class Tags:
     TAG_IMAGE_ASPECT_RATIO_SQ = "square"
     TAG_SHAREABLE = "sharable"
     TAG_IMAGE_ASPECT_RATIO = "image_aspect_ratio"
+    TAG_ELEMENT_SHARE = "element_share"
+    TAG_SHARE_CONTENTS = "share_contents"

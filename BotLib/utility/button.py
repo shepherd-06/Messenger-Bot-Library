@@ -1,11 +1,14 @@
 from BotLib.utility.tag import Tags
 from BotLib.utility.mother import MotherClass
+from BotLib.utility.button_validation import ButtonValidation
 
 
 class Button(MotherClass):
 
     def __init__(self):
         super().__init__()
+        self.btn_validation = ButtonValidation()
+        
 
     def create_url_button(self, title: str, url: str, webview_height_ratio: str = "full", messenger_extensions: bool = False, fallback_url: str = '', webview_share_button: str = 'hide', is_default_action: bool = False):
         """
@@ -231,7 +234,35 @@ class Button(MotherClass):
         - Generic template
         - List template
         - Media template
-
-        :share_contents: dict For share buttons using the element_share feature, only the <generic template> with [[ one URL button ]] is supported.
+        :share_contents: dict For share buttons using the element_share feature,
+            only the <generic template> with [[ one URL button ]] is supported.
+            share_contents only supports the following:
+                - Template used must be generic template.
+                - Maximum of one URL button on the template. If no buttons are specified, 
+                  the buttons property on the generic template must be set to an empty array.
         """
-        pass
+        if share_contents is None:
+            return {
+                "type": "element_share"
+            }
+        else:
+            """
+            To create a share element, I will send a request to generic_element to 
+            create_single_generic_elements function. This will run an initial validation
+            against the parameters given, however, this won't pass for share element
+            so I will send the share_element to btn_validation class to validate again.
+            User will:
+            1) create a default_action btn from btn class
+            2) create a btn array 
+            3) call create_single_generic_elements function
+            4) send the package to generate_generic_payload
+            5) that would be share_elements which comes here
+            This shit is little confusing at this moment. I think i need to trim it down a little bit later
+            """
+            if not self.btn_validation.validate_generic_share_elements(share_contents):
+                return {
+                    self.tags.TAG_TYPE: self.tags.TAG_ELEMENT_SHARE,
+                    self.tags.TAG_SHARE_CONTENTS: share_contents
+                }
+            else:
+                return None

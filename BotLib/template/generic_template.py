@@ -18,7 +18,21 @@ class GenericTemplate(MotherClass):
         :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
         :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
         :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
-        Its okay to share without any subtitle and image_url
+        """
+        message = self.generate_generic_payload(elements, shareable, image_aspect_ratio)
+        generic_payload = self.utility.create_basic_recipient(self.user_id)
+        generic_payload[self.tags.TAG_MESSAGE] = message
+        return generic_payload
+
+    def generate_generic_payload(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
+        """
+        https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
+        The generic template allows you to send a structured message that includes an image, text and buttons.
+        A generic template with multiple templates described in the elements array will send a horizontally
+        scrollable carousel of items, each composed of an image, text and buttons.
+        :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
+        :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
+        :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
         """
         if elements is None or len(elements) == 0:
             # Error
@@ -56,16 +70,13 @@ class GenericTemplate(MotherClass):
             self.tags.TAG_IMAGE_ASPECT_RATIO: image_aspect_ratio,
             self.tags.TAG_ELEMENTS: elements
         }
-
-        message = {
+        return {
             self.tags.TAG_ATTACHMENT: {
                 self.tags.TAG_TYPE: self.tags.TAG_TEMPLATE,
                 self.tags.TAG_PAYLOAD: payload
             }
         }
-        generic_payload = self.utility.create_basic_recipient(self.user_id)
-        generic_payload[self.tags.TAG_MESSAGE] = message
-        return generic_payload
+
 
     def validate_generic_element(self, element: dict):
         """
@@ -137,6 +148,10 @@ class GenericTemplate(MotherClass):
         An array of element objects that describe instances of the generic template to be sent.
         Specifying multiple elements will send a horizontally scrollable carousel of templates.
         A maximum of 10 elements is supported.
+
+        This function works for both Generic Element and as well as to create
+        an element for share_contents
+
         :title :str The title to display in the template. 80 character limit.
         :subtitle :str Optional. The subtitle to display in the template. 80 character limit.
         :image_url :str Optional. The URL of the image to display in the template.
