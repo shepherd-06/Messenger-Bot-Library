@@ -6,7 +6,7 @@ install_requires = [
 
 setup(name='bizarro',  # alternative name docket
       packages=['BotLib'],
-      version='0.0.1.0.dev1',
+      version='0.0.0.1.dev1',
       description='',
       url='https://github.com/ibtehaz-shawon/bizarro',
       author='Ibtehaz Shawon',
