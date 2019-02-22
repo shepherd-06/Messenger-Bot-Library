@@ -239,11 +239,12 @@ class TestGenericTemplate(unittest.TestCase):
     def test_generic_template_twelve(self):
         payload = list()
         payload_subtitle = "Gello Hello - 12"
-        payload.append(self.generic_template.create_single_generic_elements("", subtitle=payload_subtitle, image_url=self.url))
+        payload.append(self.generic_template.create_single_generic_elements(
+            "", subtitle=payload_subtitle, image_url=self.url))
         generic_payload = self.generic_template.generic_template(
             payload, shareable=True)
         self.assertEqual(generic_payload, None,
-                            "Generic Payload is None! Crap!")
+                         "Generic Payload is None! Crap!")
         status_code = self.facebook.send_message(generic_payload)
         self.assertEqual(status_code, 400,
                          "Status code is not 200! Whaaaaaaaaaaaat!")

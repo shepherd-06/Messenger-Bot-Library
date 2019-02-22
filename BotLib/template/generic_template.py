@@ -19,7 +19,8 @@ class GenericTemplate(MotherClass):
         :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
         :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
         """
-        message = self.generate_generic_payload(elements, shareable, image_aspect_ratio)
+        message = self.generate_generic_payload(
+            elements, shareable, image_aspect_ratio)
         if message is None:
             # cause validatio in another function.
             return None
@@ -80,7 +81,6 @@ class GenericTemplate(MotherClass):
                 self.tags.TAG_PAYLOAD: payload
             }
         }
-
 
     def validate_generic_element(self, element: dict):
         """
