@@ -12,6 +12,7 @@ class Button(MotherClass):
 
     def create_url_button(self, title: str, url: str, webview_height_ratio: str = "full", messenger_extensions: bool = False, fallback_url: str = '', webview_share_button: str = 'hide', is_default_action: bool = False):
         """
+        Also applied as DEFAULT_ACTION in multiple other templates.
         Reference: https://developers.facebook.com/docs/messenger-platform/reference/buttons/url
         Supported usage:
             Persistent menu
