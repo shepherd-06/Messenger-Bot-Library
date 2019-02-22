@@ -20,9 +20,13 @@ class GenericTemplate(MotherClass):
         :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
         """
         message = self.generate_generic_payload(elements, shareable, image_aspect_ratio)
-        generic_payload = self.utility.create_basic_recipient(self.user_id)
-        generic_payload[self.tags.TAG_MESSAGE] = message
-        return generic_payload
+        if message is None:
+            # cause validatio in another function.
+            return None
+        else:
+            generic_payload = self.utility.create_basic_recipient(self.user_id)
+            generic_payload[self.tags.TAG_MESSAGE] = message
+            return generic_payload
 
     def generate_generic_payload(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
         """
