@@ -1,5 +1,5 @@
-from BotLib.utility.button_validation import ButtonValidation
-from BotLib.utility.mother import MotherClass
+from bizarro_lib.utility.button_validation import ButtonValidation
+from bizarro_lib.utility.mother import MotherClass
 
 
 class ButtonTemplate(MotherClass):

@@ -4,10 +4,17 @@ install_requires = [
     'zathura',
 ]
 
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(name='bizarro',  # alternative name docket
-      packages=['BotLib'],
+      packages=['bizarro_lib'],
       version='0.0.0.1.dev1',
       description='',
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       url='https://github.com/ibtehaz-shawon/bizarro',
       author='Ibtehaz Shawon',
       author_email='ibtehaz.92@gmail.com',
@@ -17,7 +24,7 @@ setup(name='bizarro',  # alternative name docket
       ],
       entry_points={
           'console_scripts': [
-              'bizarro = BotLib.__init__:create_app'
+              'bizarro = bizarro_lib.__init__:create_app'
           ]
       },
       classifiers=[

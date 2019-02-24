@@ -1,7 +1,7 @@
 import unittest
-from BotLib.quick_reply.quick_re import QuickReply
+from bizarro_lib.quick_reply.quick_re import QuickReply
 from Tests.send_message import Facebook
-from BotLib.utility.tag import Tags
+from bizarro_lib.utility.tag import Tags
 
 
 class TestQuickReply(unittest.TestCase):
