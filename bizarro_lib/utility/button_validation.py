@@ -8,7 +8,61 @@ class ButtonValidation(MotherClass):
 
     def button_validation(self, buttons: dict, button_type: str = None):
         """
+        validates button againsts all button type.
+        :buttons :dict button object that needs to be validate.
+        :button_type :str if default_action button type needs to be validated.
         """
+        if type(buttons) != dict:
+            return False
+
+        if self.tags.TAG_TYPE not in buttons:
+            return False
+
+        for key in buttons:
+            if key == self.tags.TAG_TYPE:
+                if (buttons[key] == self.tags.TAG_WEB_URL):
+                    if button_type is not None:
+                        return True if self.validate_web_url(buttons, True) else False
+                    else:
+                        return True if self.validate_web_url(buttons) else False
+        return True
+
+    def validate_web_url(self, button: dict, is_default_action: bool = False):
+        """
+        Validates button type web_url
+        :button :dict Button element that needs to be varified as web_url
+        :returns :bool
+        """
+        btn_type = button[self.tags.TAG_TYPE] if self.tags.TAG_TYPE in button else None
+        url = button[self.tags.TAG_URL] if self.tags.TAG_URL in button else None
+        title = button[self.tags.TAG_TITLE] if self.tags.TAG_TITLE in button else None
+        webview_height_ratio = button[self.tags.TAG_WEBVIEW_HEIGHT_RATIO] if self.tags.TAG_WEBVIEW_HEIGHT_RATIO in button else None
+        messenger_extension = button[self.tags.TAG_MESSENGER_EXTENSION] if self.tags.TAG_MESSENGER_EXTENSION in button else None
+        fallback_url = button[self.tags.TAG_FALLBACK_URL] if self.tags.TAG_FALLBACK_URL in button else None
+
+        if btn_type is None or btn_type != self.tags.TAG_WEB_URL:
+            return False
+
+        if url is None or len(url) == 0:
+            return False
+
+        if not self.utility.url_validation(url):
+            return False
+        
+        if not is_default_action:
+            if title is None or len(title) == 0:
+                return False
+
+        if type(messenger_extension) == bool:
+            if messenger_extension:
+                if fallback_url is None or len(fallback_url) == 0:
+                    return False
+                if not self.utility.https_url_validation(fallback_url):
+                    return False
+
+        if webview_height_ratio is not None:
+            if webview_height_ratio not in (self.tags.TAG_ELEMENT_COMPACT, self.tags.TAG_WEBVIEW_HEIGHT_RATIO_FULL, self.tags.TAG_WEBVIEW_HEIGHT_RATIO_TALL):
+                return False
         return True
 
     def validate_generic_share_elements(self, share_contents: dict):
@@ -49,9 +103,9 @@ class ButtonValidation(MotherClass):
                                 if def_url is not None:
                                     if not self.utility.url_validation(def_url):
                                         # Error - TODO
-                                        return False                                
+                                        return False
                         else:
-                            # Does not matter 
+                            # Does not matter
                             pass
                         if self.tags.TAG_BUTTONS in element:
                             buttons = element[self.tags.TAG_BUTTONS]
@@ -89,6 +143,6 @@ class ButtonValidation(MotherClass):
             else:
                 # Error - TODO
                 return False
-        # If share_content is not None, then everything must be checked 
+        # If share_content is not None, then everything must be checked
         # cause fb will try to parse through everything.
         return True
