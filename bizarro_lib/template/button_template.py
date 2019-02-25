@@ -40,12 +40,12 @@ class ButtonTemplate(MotherClass):
             self.zathura.insert_error_log(self.user_id, "buttons", "There must be AT MAX 3 buttons. Buttons: {}".format(
                 len(buttons)), self.zathura_utility.Tag_Log_WARNING)
             return
-
-        if not self.button_validate.button_validation(buttons):
-            # Error
-            self.zathura.insert_error_log(
-                self.user_id, "buttons", "Buttons did not validate the correct format", self.zathura_utility.Tag_Log_ERROR)
-            return
+        for button in buttons:
+            if not self.button_validate.button_validation(button):
+                # Error
+                self.zathura.insert_error_log(
+                    self.user_id, "buttons", "Buttons did not validate the correct format", self.zathura_utility.Tag_Log_ERROR)
+                return
 
         # Now create payload
         payload = {
