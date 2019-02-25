@@ -25,7 +25,64 @@ class ButtonValidation(MotherClass):
                         return True if self.validate_web_url(buttons, True) else False
                     else:
                         return True if self.validate_web_url(buttons) else False
+                elif (buttons[key] == self.tags.TAG_POSTBACK):
+                    return True if self.validate_postback_button(buttons) else False
+                elif buttons[key] == self.tags.TAG_PHONE_NUMEBR:
+                    return True if self.validate_call_button(buttons) else False
         return True
+
+    def validate_call_button(self, button: dict):
+        """
+        This functions validates button type: phone_number
+        :button :dict Button element that needs to be varified as call button
+        :returns :bool
+        """
+        btn_type = button[self.tags.TAG_TYPE] if self.tags.TAG_TYPE in button else None 
+        title = button[self.tags.TAG_TITLE] if self.tags.TAG_TITLE in button else None
+        phone_number = button[self.tags.TAG_PAYLOAD] if self.tags.TAG_PAYLOAD in button else None
+
+        if btn_type is None or len(btn_type) == 0 or btn_type != self.tags.TAG_PHONE_NUMEBR:
+            return False
+        
+        if title is None or len(title) == 0:
+            return False
+        
+        if phone_number is not None or len(phone_number) > 0:
+            import phonenumbers
+            try:
+                __phone_number = phonenumbers.parse(phone_number, None)
+            except phonenumbers.phonenumberutil.NumberParseException:
+                return False
+            
+            if not phonenumbers.is_valid_number(__phone_number):
+                return False
+        else:
+            return False
+        return True
+
+    def validate_postback_button(self, button:dict):
+        """
+        This functions validates button type: postback 
+        :button :dict Button element that needs to be varified as postback button
+        :returns :bool
+        """
+        btn_type = button[self.tags.TAG_TYPE] if self.tags.TAG_TYPE in button else None 
+        title = button[self.tags.TAG_TITLE] if self.tags.TAG_TITLE in button else None
+        payload = button[self.tags.TAG_PAYLOAD] if self.tags.TAG_PAYLOAD in button else None
+
+        if btn_type is None or len(btn_type) == 0:
+            return False
+        
+        if btn_type != self.tags.TAG_POSTBACK:
+            return False
+        
+        if title is None or len(title) == 0:
+            return False
+
+        if payload is None or len(payload) == 0 or len(payload) > 1000:
+            return False
+        return True
+
 
     def validate_web_url(self, button: dict, is_default_action: bool = False):
         """
