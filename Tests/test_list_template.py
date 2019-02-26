@@ -28,8 +28,7 @@ class TestListTemplate(unittest.TestCase):
         for _ in range(0, 2):
             list_payload.append(self.list_template.create_list_element("Hello Test 1_{}".format(_), 'Subtitle_one', self.url, buttons=buttons))     
         payload = self.list_template.list_template_payload(list_payload)
-        print(payload)
         self.assertNotEqual(type(payload), type(None), "None type!")
-        status_code = self.facebook.send_message(list_payload)
+        status_code = self.facebook.send_message(payload)
         self.assertEqual(status_code, 200, "Come on man!")
 
