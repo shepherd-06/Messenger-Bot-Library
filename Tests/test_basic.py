@@ -1,7 +1,6 @@
 import unittest
 from Tests.send_message import Facebook
-from bizarro_lib.utility.tag import Tags
-from bizarro_lib.utility.util import Utility
+from bizarro_lib.util import Utility
 import random
 import time
 

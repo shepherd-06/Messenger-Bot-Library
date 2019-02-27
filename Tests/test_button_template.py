@@ -1,7 +1,7 @@
 import unittest
-from bizarro_lib.template.button_template import ButtonTemplate
-from bizarro_lib.utility.button import Button
-from bizarro_lib.utility.util import Utility
+from bizarro_lib.button_template import ButtonTemplate
+from bizarro_lib.button import Button
+from bizarro_lib.util import Utility
 from Tests.send_message import Facebook
 
 class TestButtonTemplate(unittest.TestCase):
