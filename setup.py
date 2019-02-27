@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(name='bizarro',  # alternative name docket
       packages=['bizarro', 'bizarro.utility', 'bizarro.template', 'bizarro..buttons'],
-      version='0.0.0.1.dev4',
+      version='0.0.0.1.dev5',
       description='',
       long_description=long_description,
       long_description_content_type='text/markdown',
