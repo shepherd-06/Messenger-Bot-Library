@@ -1,7 +1,7 @@
 import unittest
-from bizarro_lib.list_template import ListTemplate
-from bizarro_lib.button import Button
-from bizarro_lib.button_validation import ButtonValidation
+from bizarro_lib.template.template_list import ListTemplate
+from bizarro_lib.buttons.button_generator import Button
+from bizarro_lib.buttons.button_validator import ButtonValidation
 from Tests.send_message import Facebook
 
 class TestListTemplate(unittest.TestCase):
