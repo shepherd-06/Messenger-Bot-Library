@@ -1,6 +1,6 @@
 import unittest
-from bizarro_lib.template.template_generic import GenericTemplate
-from bizarro_lib.buttons.button_generator import Button
+from bizarro.template.template_generic import GenericTemplate
+from bizarro.buttons.button_generator import Button
 from Tests.send_message import Facebook
 
 

@@ -1,7 +1,7 @@
 from ZathuraProject.zathura import Zathura
 from ZathuraProject.utility import Utility as zathura_utility
-from bizarro_lib.utility.util import Utility
-from bizarro_lib.utility.tag import Tags
+from bizarro.utility.util import Utility
+from bizarro.utility.tag import Tags
 import logging
 
 

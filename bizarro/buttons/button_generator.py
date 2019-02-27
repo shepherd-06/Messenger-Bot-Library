@@ -1,6 +1,6 @@
-from bizarro_lib.utility.tag import Tags
-from bizarro_lib.utility.mother import MotherClass
-from bizarro_lib.buttons.button_validator import ButtonValidation
+from bizarro.utility.tag import Tags
+from bizarro.utility.mother import MotherClass
+from bizarro.buttons.button_validator import ButtonValidation
 
 
 class Button(MotherClass):

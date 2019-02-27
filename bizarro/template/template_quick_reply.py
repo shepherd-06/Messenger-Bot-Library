@@ -1,5 +1,5 @@
-from bizarro_lib.utility.tag import Tags
-from bizarro_lib.utility.util import Utility
+from bizarro.utility.tag import Tags
+from bizarro.utility.util import Utility
 from ZathuraProject.zathura import Zathura
 from ZathuraProject.utility import Utility as ZathuraUtility
 

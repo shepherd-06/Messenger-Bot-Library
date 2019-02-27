@@ -1,4 +1,4 @@
-from bizarro_lib.utility.mother import MotherClass
+from bizarro.utility.mother import MotherClass
 
 
 class ButtonValidation(MotherClass):

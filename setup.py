@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='bizarro',  # alternative name docket
-      packages=['bizarro_lib', 'bizarro_lib.utility', 'bizarro_lib.template', 'bizarro_lib..buttons'],
+      packages=['bizarro', 'bizarro.utility', 'bizarro.template', 'bizarro..buttons'],
       version='0.0.0.1.dev4',
       description='',
       long_description=long_description,
@@ -24,7 +24,7 @@ setup(name='bizarro',  # alternative name docket
       ],
       entry_points={
           'console_scripts': [
-              'bizarro = bizarro_lib.__init__:create_app'
+              'bizarro = bizarro.__init__:create_app'
           ]
       },
       classifiers=[
