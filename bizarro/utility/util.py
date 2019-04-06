@@ -59,6 +59,7 @@ class Utility:
     def typing_on(self, user_id: str, waiting_period: float = 1.5):
         """
         private function, turns on typing function, sleep 3s before doing anything else.
+        :param waiting_period:
         :param user_id:
         :return: returns the payload for typing_on function
         """
