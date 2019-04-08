@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-bizarro-s-documentation">
+<h1>Welcome to bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-bizarro.__init__"></span><span class="target" id="module-bizarro.buttons.button_generator"></span><dl class="class">
+<dt id="bizarro.buttons.button_generator.Button">
+<em class="property">class </em><code class="descclassname">bizarro.buttons.button_generator.</code><code class="descname">Button</code><a class="headerlink" href="#bizarro.buttons.button_generator.Button" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="bizarro.buttons.button_generator.Button.create_call_button">
+<code class="descname">create_call_button</code><span class="sig-paren">(</span><em>title: str</em>, <em>phone_number: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_call_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call">https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call</a>
+The call button dials a phone number when tapped. Phone number should be in the format +&lt;COUNTRY_CODE&gt;&lt;PHONE_NUMBER&gt;, e.g. +15105559999.
+The call button is supported for use with the following:
+- Generic template
+- List template
+- Button template
+- Media template
+:title :str Button title, 20 character limit.
+:phone_number :str Format must have “+” prefix followed by the country code, area code and local number. For example, +16505551234.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_generator.Button.create_postback_button">
+<code class="descname">create_postback_button</code><span class="sig-paren">(</span><em>title: str</em>, <em>payload: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_postback_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback">https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback</a>
+The postback button sends a messaging_postbacks event to your webhook with the string set in the payload property.
+This allows you to take an arbitrary actions when the button is tapped.
+For example, you might display a list of products,
+then send the product ID in the postback to your webhook,
+where it can be used to query your database and return the product details as a structured message.</p>
+<p>The postback button is supported for use with the following:
+- Persistent menu
+- Generic template
+- List template
+- Button template
+- Media template</p>
+<p>:title :str - Button title. 20 character limit.
+:payload :str - This data will be sent back to your webhook. 1000 character limit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_generator.Button.create_share_button">
+<code class="descname">create_share_button</code><span class="sig-paren">(</span><em>share_contents: dict = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_share_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share">https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share</a>
+The share button allows the message recipient to share the content of a message you sent with others on Messenger. The name and icon of your Page appear as an attribution at the top of the shared content.
+The attribution opens a conversation with your bot when tapped.
+With the share button, you can share the exact message or specify a new generic template message in the share_contents property.
+If you specify a new generic template, the message recipient will be able to add a message to the share. This is useful if you want change the look or add content to the original message.</p>
+<p>The share button is supported for use with the following:
+- Generic template
+- List template
+- Media template
+:share_contents: dict For share buttons using the element_share feature,</p>
+<blockquote>
+<div><p>only the &lt;generic template&gt; with [[ one URL button ]] is supported.
+share_contents only supports the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Template used must be generic template.</p></li>
+<li><p>Maximum of one URL button on the template. If no buttons are specified,
+the buttons property on the generic template must be set to an empty array.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_generator.Button.create_url_button">
+<code class="descname">create_url_button</code><span class="sig-paren">(</span><em>title: str</em>, <em>url: str</em>, <em>webview_height_ratio: str = 'full'</em>, <em>messenger_extensions: bool = False</em>, <em>fallback_url: str = ''</em>, <em>webview_share_button: str = 'hide'</em>, <em>is_default_action: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_url_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Also applied as DEFAULT_ACTION in multiple other templates.
+Reference: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/buttons/url">https://developers.facebook.com/docs/messenger-platform/reference/buttons/url</a>
+Supported usage:</p>
+<blockquote>
+<div><p>Persistent menu
+Generic template
+List template
+Button template
+Media template
+Open graph template</p>
+</div></blockquote>
+<p>:title :str Button title. 20 character limit.
+:url :str This URL is opened in a mobile browser when the button is tapped. Must use HTTPS protocol if messenger_extensions is true.
+:webview_height_ratio :str Optional. Height of the Webview. Valid values: compact, tall, full. Defaults to full.
+:messenger_extensions :bool Optional. Must be true if using Messenger Extensions.
+:fallback_url :str The URL to use on clients that don’t support Messenger Extensions. If this is not defined, the url will be used as the fallback. It may only be specified if messenger_extensions is true.
+:webview_share_button: str Optional. Set to hide to disable the share button in the Webview (for sensitive info). This does not affect any shares initiated by the developer using Extensions.
+:returns a dictionary in the format for web_url button template</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-bizarro.buttons.button_validator"></span><dl class="class">
+<dt id="bizarro.buttons.button_validator.ButtonValidation">
+<em class="property">class </em><code class="descclassname">bizarro.buttons.button_validator.</code><code class="descname">ButtonValidation</code><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="bizarro.buttons.button_validator.ButtonValidation.button_validation">
+<code class="descname">button_validation</code><span class="sig-paren">(</span><em>buttons: dict</em>, <em>button_type: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation.button_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>validates button againsts all button type.
+:buttons :dict button object that needs to be validate.
+:button_type :str if default_action button type needs to be validated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_validator.ButtonValidation.validate_call_button">
+<code class="descname">validate_call_button</code><span class="sig-paren">(</span><em>button: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation.validate_call_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>This functions validates button type: phone_number
+:button :dict Button element that needs to be varified as call button
+:returns :bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_validator.ButtonValidation.validate_generic_share_elements">
+<code class="descname">validate_generic_share_elements</code><span class="sig-paren">(</span><em>share_contents: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation.validate_generic_share_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional. The message that you wish the recipient of the share to see,
+if it is different from the one this button is attached to.
+The format follows that used in Send API.
+share_contents only supports the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Template used must be generic template.</p></li>
+<li><p>Maximum of one URL button on the template. If no buttons are specified,
+the buttons property on the generic template must be set to an empty array.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_validator.ButtonValidation.validate_postback_button">
+<code class="descname">validate_postback_button</code><span class="sig-paren">(</span><em>button: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation.validate_postback_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>This functions validates button type: postback
+:button :dict Button element that needs to be varified as postback button
+:returns :bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.buttons.button_validator.ButtonValidation.validate_web_url">
+<code class="descname">validate_web_url</code><span class="sig-paren">(</span><em>button: dict</em>, <em>is_default_action: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_validator.ButtonValidation.validate_web_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates button type web_url
+:button :dict Button element that needs to be varified as web_url
+:returns :bool</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">bizarro</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ibtehaz Shawon.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
