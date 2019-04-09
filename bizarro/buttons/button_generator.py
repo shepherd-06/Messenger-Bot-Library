@@ -2,6 +2,17 @@ from bizarro.utility.tag import Tags
 from bizarro.utility.mother import MotherClass
 from bizarro.buttons.button_validator import ButtonValidation
 
+"""
+Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
+Currently, the supported button types are
+    * Url Button
+    * Postback Button
+    * Call Button
+    * *Share Button* (This might be little buggy! I have not been able to run a full test on it yet)
+
+Please check Facebook's documentation for more information. See the **Reference** url on top of every buttons.
+"""
+
 
 class Button(MotherClass):
 
@@ -14,21 +25,31 @@ class Button(MotherClass):
                           webview_share_button: str = 'hide', is_default_action: bool = False):
         """
         Also applied as DEFAULT_ACTION in multiple other templates.
-        Reference: https://developers.facebook.com/docs/messenger-platform/reference/buttons/url
+
+        **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/buttons/url
+
         Supported usage:
-            Persistent menu
-            Generic template
-            List template
-            Button template
-            Media template 
-            Open graph template
-        :title :str Button title. 20 character limit.
-        :url :str This URL is opened in a mobile browser when the button is tapped. Must use HTTPS protocol if messenger_extensions is true.
-        :webview_height_ratio :str Optional. Height of the Webview. Valid values: compact, tall, full. Defaults to full.
-        :messenger_extensions :bool Optional. Must be true if using Messenger Extensions.
-        :fallback_url :str The URL to use on clients that don't support Messenger Extensions. If this is not defined, the url will be used as the fallback. It may only be specified if messenger_extensions is true.
-        :webview_share_button: str Optional. Set to hide to disable the share button in the Webview (for sensitive info). This does not affect any shares initiated by the developer using Extensions. 
-        :returns a dictionary in the format for web_url button template
+           * Persistent menu
+           * Generic template
+           * List template
+           * Button template
+           * Media template
+           * Open graph template
+
+        :type title: string
+        :param title: Button title. 20 character limit.
+        :type url: string
+        :param url: This URL is opened in a mobile browser when the button is tapped. Must use HTTPS protocol if messenger_extensions is true.
+        :type webview_height_ratio: string
+        :param webview_height_ratio: *Optional*. Height of the Webview. Valid values: compact, tall, full. Defaults to full.
+        :type messenger_extensions: string
+        :param messenger_extensions: *Optional*. Must be true if using Messenger Extensions.
+        :type fallback_url: string
+        :param fallback_url: The URL to use on clients that don't support Messenger Extensions. If this is not defined, the url will be used as the fallback. It may only be specified if messenger_extensions is true.
+        :type webview_share_button: string
+        :param webview_share_button: *Optional*. Set to hide to disable the share button in the Webview (for sensitive info). This does not affect any shares initiated by the developer using Extensions.
+
+        :returns: a dictionary in the format for web_url button template
         """
         user = "create_url_button"
         if not is_default_action:
@@ -56,7 +77,8 @@ class Button(MotherClass):
             return
 
         if webview_height_ratio not in (
-        Tags.TAG_WEBVIEW_HEIGHT_RATIO_COMAPCT, Tags.TAG_WEBVIEW_HEIGHT_RATIO_FULL, Tags.TAG_WEBVIEW_HEIGHT_RATIO_TALL):
+                Tags.TAG_WEBVIEW_HEIGHT_RATIO_COMAPCT, Tags.TAG_WEBVIEW_HEIGHT_RATIO_FULL,
+                Tags.TAG_WEBVIEW_HEIGHT_RATIO_TALL):
             # error
             self.zathura.insert_error_log(
                 user, "webview_height_ratio",
@@ -140,7 +162,8 @@ class Button(MotherClass):
 
     def create_postback_button(self, title: str, payload: str):
         """
-        Reference: https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback
+        **Reference:** https://developers.facebook.com/docs/messenger-platform/reference/buttons/postback
+
         The postback button sends a messaging_postbacks event to your webhook with the string set in the payload property.
         This allows you to take an arbitrary actions when the button is tapped.
         For example, you might display a list of products,
@@ -148,14 +171,18 @@ class Button(MotherClass):
         where it can be used to query your database and return the product details as a structured message.
 
         The postback button is supported for use with the following:
-        - Persistent menu
-        - Generic template
-        - List template
-        - Button template
-        - Media template
+        * Persistent menu
+        * Generic template
+        * List template
+        * Button template
+        * Media template
 
-        :title :str - Button title. 20 character limit.
-        :payload :str - This data will be sent back to your webhook. 1000 character limit.
+        :type title: string
+        :param title: Button title. 20 character limit.
+        :type payload: string
+        :param payload: This data will be sent back to your webhook. 1000 character limit.
+
+        :return: A postback type button payload
         """
         user = "create_postback_button"
 
@@ -190,15 +217,22 @@ class Button(MotherClass):
 
     def create_call_button(self, title: str, phone_number: str):
         """
-        Reference: https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call
+        **Reference:** https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call
+
         The call button dials a phone number when tapped. Phone number should be in the format +<COUNTRY_CODE><PHONE_NUMBER>, e.g. +15105559999.
+
         The call button is supported for use with the following:
-        - Generic template
-        - List template
-        - Button template
-        - Media template
-        :title :str Button title, 20 character limit.
-        :phone_number :str Format must have "+" prefix followed by the country code, area code and local number. For example, +16505551234.
+            * Generic template
+            * List template
+            * Button template
+            * Media template
+
+        :type title: string
+        :param title: Button title, 20 character limit.
+        :type phone_number: string
+        :param phone_number: Format must have "+" prefix followed by the country code, area code and local number. For example, +16505551234.
+
+        :return: Returns a button payload which enables the user to dial a certain number. Number might appear on their dial-pad. User have to manually press the dial button
         """
         import phonenumbers
         user = "create_log_in_button"
@@ -242,22 +276,27 @@ class Button(MotherClass):
 
     def create_share_button(self, share_contents: dict = None):
         """
-        Reference: https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share
+        **Reference:** https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share
+
         The share button allows the message recipient to share the content of a message you sent with others on Messenger. The name and icon of your Page appear as an attribution at the top of the shared content.
         The attribution opens a conversation with your bot when tapped.
         With the share button, you can share the exact message or specify a new generic template message in the share_contents property.
         If you specify a new generic template, the message recipient will be able to add a message to the share. This is useful if you want change the look or add content to the original message.
 
         The share button is supported for use with the following:
-        - Generic template
-        - List template
-        - Media template
-        :share_contents: dict For share buttons using the element_share feature,
-            only the <generic template> with [[ one URL button ]] is supported.
-            share_contents only supports the following:
-                - Template used must be generic template.
-                - Maximum of one URL button on the template. If no buttons are specified, 
-                  the buttons property on the generic template must be set to an empty array.
+            * Generic template
+            * List template
+            * Media template
+
+        :type share_contents: dict
+        :param share_contents: For share buttons using the element_share feature, only the **Generic Template** with *one URL button* is supported.
+
+        *share_contents* only supports the following:
+                * Template used must be generic template.
+                * Maximum of one URL button on the template.
+                * If no buttons are specified, the buttons property on the generic template must be set to an empty array.
+
+        :return: creates a payload which enable user to share the content of a message.
         """
         if share_contents is None:
             return {

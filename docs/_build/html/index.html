@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
+    <title>Welcome to Bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -32,11 +32,11 @@
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-bizarro-s-documentation">
-<h1>Welcome to bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to Bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Bizarro is a python library for Facebook Messenger Bot. It’s basic task is to help developers creating payloads for Facebook Messenger Bot.
 Facebook has different templates and buttons for their Messenger Platform. However, it’s extremely tedious to write the payload every time. Bizarro here can help you to write awesome bot without
 worrying about the payload. All you need to do is send the necessary text inputs and bizarro’s function will return the appropriate payload for you.
-Bizarro takes help of one of my other python package - __Zathura__, (A sqlite3 logger I wrote for one of my package).
+Bizarro takes help of one of my other python package - <strong>Zathura</strong>, (A sqlite3 logger I wrote for one of my package).
 Currently, the library is in alpha version.</p>
 <div class="section" id="how-to-install">
 <h2>How to Install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
@@ -54,56 +54,56 @@ Currently, the library is in alpha version.</p>
 <li><p>Typing On</p></li>
 <li><p>Marked Seen</p></li>
 <li><dl class="simple">
-<dt>Button</dt><dd><ol class="arabic simple">
+<dt>Button</dt><dd><ul class="simple">
 <li><p>Postback Button</p></li>
 <li><p>Url Button</p></li>
 <li><p>Call Button</p></li>
-</ol>
+</ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Template</dt><dd><ol class="arabic simple">
+<dt>Template</dt><dd><ul class="simple">
 <li><p>Button Template</p></li>
 <li><p>Generic Template</p></li>
 <li><p>List Template</p></li>
-</ol>
+</ul>
 </dd>
 </dl>
 </li>
 </ol>
 <p>Attachment sending is not enabled in any other buttons or template right now. They will be rolled out in upcoming versions.</p>
 </div>
-<div class="section" id="how-to-work-with-bizarro">
-<h2>How to work with bizarro<a class="headerlink" href="#how-to-work-with-bizarro" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Suppose you want to send user a simple “Hello”:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bizarro.utility.util</span> <span class="k">import</span> <span class="n">Utility</span>
 
 <span class="n">echo_text</span> <span class="o">=</span> <span class="n">bizarro_utility</span><span class="p">()</span><span class="o">.</span><span class="n">basic_text_reply_payload</span><span class="p">(</span><span class="n">fb_user_id</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>now all you have to do is, send the payload __echo_text__ with your page_access_token.
-Code examples are coming soon.</p>
+<p>now all you have to do is, send the payload <strong>echo_text</strong> with your page_access_token. That was a simple example.
+Checkout the complete documentation for better understanding</p>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="buttons.html">Welcome to bizarro’s documentation!</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="buttons.html#module-bizarro.buttons.button_generator">Buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buttons.html#buttons">Buttons</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</div>
+</div>
 </div>
 
 
