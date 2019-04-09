@@ -19,9 +19,9 @@ It's a pypi package (https://pypi.org/project/bizarro/). So::
 
     pip install bizarro
 
-**************
+***************
 Current support
-**************
+***************
 Right now, bizarro has support for the following
 
 1) Echo Back (Simple text reply)
@@ -39,9 +39,9 @@ Right now, bizarro has support for the following
 
 Attachment sending is not enabled in any other buttons or template right now. They will be rolled out in upcoming versions.
 
-**************
+************************
 How to work with bizarro
-**************
+************************
 
 Suppose you want to send user a simple "Hello"::
 
@@ -52,15 +52,14 @@ Suppose you want to send user a simple "Hello"::
 now all you have to do is, send the payload __echo_text__ with your page_access_token.
 Code examples are coming soon.
 
-.. automodule:: bizarro.buttons.button_generator
-    :members:
-
-.. automodule:: bizarro.buttons.button_validator
-    :members:
+********
+Contents
+********
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
+   buttons
 
 
 
