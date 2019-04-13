@@ -22,6 +22,7 @@ copyright = '2019, Ibtehaz Shawon'
 author = 'Ibtehaz Shawon'
 
 # The full version, including alpha/beta/rc tags
+version = "0.0.0.1.dev7"
 release = 'v0.0.0.1.dev7'
 
 
