@@ -6,7 +6,7 @@ from bizarro.buttons.button_validator import ButtonValidation
 class Button(MotherClass):
     """
     Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
-    Currently, the supported button types are
+    Currently supported button types are:
         * Url Button
         * Postback Button
         * Call Button

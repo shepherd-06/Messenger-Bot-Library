@@ -47,7 +47,18 @@ Currently, the supported button types are
 <dl class="class">
 <dt id="bizarro.buttons.button_generator.Button">
 <em class="property">class </em><code class="descclassname">bizarro.buttons.button_generator.</code><code class="descname">Button</code><a class="headerlink" href="#bizarro.buttons.button_generator.Button" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
+Currently supported button types are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Url Button</p></li>
+<li><p>Postback Button</p></li>
+<li><p>Call Button</p></li>
+<li><p><em>Share Button</em> (This might be little buggy! I have not been able to run a full test on it yet)</p></li>
+</ul>
+</div></blockquote>
+<p>Please check Facebook’s documentation for more information. See the <strong>Reference</strong> url on top of every buttons.</p>
+<dl class="method">
 <dt id="bizarro.buttons.button_generator.Button.create_call_button">
 <code class="descname">create_call_button</code><span class="sig-paren">(</span><em>title: str</em>, <em>phone_number: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_call_button" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Reference:</strong> <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call">https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#call</a></p>
@@ -176,7 +187,7 @@ If you specify a new generic template, the message recipient will be able to add
 </div>
 <div class="section" id="code-example">
 <h3>Code Example<a class="headerlink" href="#code-example" title="Permalink to this headline">¶</a></h3>
-<p>I will add later-April 09, 2019</p>
+<p>Last Wrote-April 09, 2019</p>
 </div>
 </div>
 </div>
