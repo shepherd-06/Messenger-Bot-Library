@@ -11,13 +11,23 @@ class ListTemplate(MotherClass):
 
     def validate_list_element(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):
         """
-        :title :str String to display as the title of the list item. 80 character limit. May be truncated if the title spans too many lines.
-        :subtitle :str Optional. String to display as the subtitle of the list item. 80 character limit. May be truncated if the subtitle spans too many lines. 
-                       Element must have one or both of image_url or subtitle set.
-        :image_url :str Optional. URL of the image to display in the list item.
-        :default_action :dict Optional. URL button that specifies the default action to execute when the list item is tapped.
-                            Only allowed when messenger_extensions property is set to true
-        :buttons :list Optional. Button to display on the list item. Maximum of 1 button is supported.
+        Validates a single list element. Whether or not it's ready to be added on the payload. Each items (title, subtitle etc)
+        has a very specific criteria to meet, set up by Facebook.
+
+        :type title: str
+        :param title: String to display as the title of the list item. **80 characters limit**. May be truncated if the title spans too many lines.
+        :type subtitle: str
+        :param subtitle: *Optional*. String to display as the subtitle of the list item. **80 characters limit**.
+        May be truncated if the subtitle spans too many lines. Element must have one or both of image_url or subtitle set.
+        :type image_url: str
+        :param image_url: *Optional*. URL of the image to display in the list item.
+        :type default_action: dict
+        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped.
+        Only allowed when messenger_extensions property is set to true
+        :type buttons: list
+        :param buttons: *Optional*. Button to display on the list item. Maximum of 1 button is supported.
+
+        :returns: bool. (True for success :p)
         """
         error_name = "validate_list_element"
         if title is None or len(title) == 0:
@@ -114,13 +124,21 @@ class ListTemplate(MotherClass):
 
     def create_list_element(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):
         """
-        :title :str String to display as the title of the list item. 80 character limit. May be truncated if the title spans too many lines.
-        :subtitle :str Optional. String to display as the subtitle of the list item. 80 character limit. May be truncated if the subtitle spans too many lines. 
-                       Element must have one or both of image_url or subtitle set.
-        :image_url :str Optional. URL of the image to display in the list item.
-        :default_action :dict Optional. URL button that specifies the default action to execute when the list item is tapped.
-                            Only allowed when messenger_extensions property is set to true
-        :buttons :list Optional. Button to display on the list item. Maximum of 1 button is supported.
+        :type title: str
+        :param title: String to display as the title of the list item. **80 character limit**.
+        May be truncated if the title spans too many lines.
+        :type subtitle: str
+        :param subtitle: *Optional*. String to display as the subtitle of the list item. 80 character limit. May be truncated if the subtitle spans too many lines.
+        Element must have one or both of image_url or subtitle set.
+        :type image_url: str
+        :param image_url: *Optional*. URL of the image to display in the list item.
+        :type default_action: dict
+        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped.
+        Only allowed when messenger_extensions property is set to true
+        :type buttons: list
+        :param buttons: *Optional*. Button to display on the list item. Maximum of 1 button is supported.
+
+        :returns: Creates a list element.
         """
         if not self.validate_list_element(title, subtitle, image_url, default_action, buttons):
             return
@@ -144,15 +162,19 @@ class ListTemplate(MotherClass):
 
     def list_template_payload(self, elements: list, top_element_style: str = "compact", buttons: list = None, sharable: bool = False):
         """
-        :elements :list Array of objects that describe items in the list. 
-                        Minimum of 2 elements required. Maximum of 4 elements is supported.
-        :top_element_style :str Optional. Sets the format of the first list items. Messenger web client currently only renders compact.
-                                compact: Renders a plain list item.
-                                large: Renders the first list item as a cover item.
-        :buttons :list Optional. Button to display at the bottom of the list. 
-                        Maximum of 1 button is supported
-        :sharable :bool Optional. Set to true to enable the native share button in Messenger for the template message. 
-                        Defaults to false.
+        :type elements: list
+        :param elements: Array of objects that describe items in the list.
+        **Minimum of 2 elements required. Maximum of 4 elements is supported.**
+        :type top_element_style: str
+        :param top_element_style: *Optional*. Sets the format of the first list items. *Messenger web client currently only renders compact.*
+                                ** compact: Renders a plain list item.
+                                ** large: Renders the first list item as a cover item.
+        :type buttons: list
+        :param buttons: *Optional*. Button to display at the bottom of the list. **Maximum of 1 button is supported**
+        :type sharable: bool
+        :param sharable: *Optional*. Set to true to enable the native share button in Messenger for the template message. *Default is false*.
+
+        :returns: creates an returns a list template for Facebook
         """
         if elements is None:
             self.zathura.insert_error_log(self.user_id, "element", "element is None", 4)

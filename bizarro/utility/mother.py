@@ -7,7 +7,8 @@ import logging
 
 class MotherClass:
     """
-    Mother classs is here to stop me from importing necessary stuff/classes/functions on every classes
+    Mother class is here to stop me from importing necessary stuff/classes/functions
+    on every classes
     """
 
     def __init__(self):

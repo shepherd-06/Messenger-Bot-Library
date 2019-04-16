@@ -3,6 +3,9 @@ from bizarro.utility.mother import MotherClass
 
 
 class ButtonTemplate(MotherClass):
+    """
+    ButtonTemplate class
+    """
     def __init__(self, facebook_user_id):
         super().__init__()
         self.user_id = facebook_user_id
@@ -11,11 +14,17 @@ class ButtonTemplate(MotherClass):
     def button_template(self, title_text: str, buttons: list, sharable: bool = False):
         """
         Creates a template format for button template
-        reference: https://developers.facebook.com/docs/messenger-platform/reference/template/button/
-        :title_text :str UTF-8-encoded text of up to 640 characters. Text will appear above the buttons.
-        :buttons :list Set of 1-3 buttons that appear as call-to-actions.
-        :shareable :bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false.
-        :return Button_Template in the form of a dictionary
+
+        **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/template/button/
+
+        :type title_text: string
+        :param title_text UTF-8-encoded text of up to 640 characters. Text will appear above the buttons.
+        :type buttons: list
+        :param buttons :Set of 1-3 buttons that appear as call-to-actions.
+        :type sharable: bool
+        :param sharable: *Optional*. Set to true to enable the native share button in Messenger for the template message. Defaults to false.
+
+        :returns: Button_Template in the form of a dictionary
         """
         if title_text is None or len(title_text) == 0:
             # Error

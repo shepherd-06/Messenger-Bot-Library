@@ -11,13 +11,20 @@ class GenericTemplate(MotherClass):
 
     def generic_template(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
         """
-        https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
         The generic template allows you to send a structured message that includes an image, text and buttons.
         A generic template with multiple templates described in the elements array will send a horizontally
         scrollable carousel of items, each composed of an image, text and buttons.
-        :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
-        :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
-        :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+
+        **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
+
+        :type elements: list
+        :param elements: An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
+        :type shareable: bool
+        :param sharable: *Optional*. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
+        :type image_aspect_ratio: str
+        :param image_aspect_ratio: *Optional*. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+
+        :returns: creates and returns a generic payload
         """
         message = self.generate_generic_payload(
             elements, shareable, image_aspect_ratio)
@@ -31,22 +38,31 @@ class GenericTemplate(MotherClass):
 
     def generate_generic_payload(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
         """
-        https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
         The generic template allows you to send a structured message that includes an image, text and buttons.
         A generic template with multiple templates described in the elements array will send a horizontally
         scrollable carousel of items, each composed of an image, text and buttons.
-        :elements: list An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
-        :sharable: bool Optional. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
-        :image_aspect_ratio: str Optional. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+
+        **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/template/generic/
+
+        :type elements: list
+        :param elements: An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.
+        :type shareable: bool
+        :param sharable: *Optional*. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.
+        :type image_aspect_ratio: str
+        :param image_aspect_ratio: *Optional*. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.
+
+        :returns: Generate each payload for Generic Template
         """
         if elements is None or len(elements) == 0:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_template", "elements cannot be None or an empty list. Elements: {}".format(
+            self.zathura.insert_error_log(self.user_id, "generic_template", "elements cannot be None or an empty "
+                                                                            "list. Elements: {}".format(
                 elements), self.zathura_utility.Tag_Log_ERROR)
             return None
         if len(elements) > 10:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_template", "Maximum 10 elements are allowed. Elements: {}".format(
+            self.zathura.insert_error_log(self.user_id, "generic_template", "Maximum 10 elements are allowed. "
+                                                                            "Elements: {}".format(
                 len(elements)), self.zathura_utility.Tag_Log_ERROR)
             return None
 
@@ -57,7 +73,8 @@ class GenericTemplate(MotherClass):
             return None
 
         if type(shareable) != bool:
-            self.zathura.insert_error_log(self.user_id, "generic_template", "Shareable can either be True or False. shareable: {}".format(
+            self.zathura.insert_error_log(self.user_id, "generic_template", "Shareable can either be True or False. "
+                                                                            "shareable: {}".format(
                 shareable), self.zathura_utility.Tag_Log_ERROR)
             return None
 
@@ -85,8 +102,11 @@ class GenericTemplate(MotherClass):
     def validate_generic_element(self, element: dict):
         """
         Validate the generic elements object against the requirements mentioned on facebook doc.
-        :element: dict has to be a fucking dictionary !!.
-        :returns :bool success is True: DUH!
+
+        :param element: dict
+        :param element: Element has to be a dictionary (To be validated properly!)
+
+        :returns: bool success is True: DUH!
         """
         if element is None:
             return False
@@ -153,14 +173,21 @@ class GenericTemplate(MotherClass):
         Specifying multiple elements will send a horizontally scrollable carousel of templates.
         A maximum of 10 elements is supported.
 
-        This function works for both Generic Element and as well as to create
-        an element for share_contents
+        *This function works for both Generic Element and as well as to create
+        an element for share_contents*
 
-        :title :str The title to display in the template. 80 character limit.
-        :subtitle :str Optional. The subtitle to display in the template. 80 character limit.
-        :image_url :str Optional. The URL of the image to display in the template.
-        :default_action :dict Optional. The default action executed when the template is tapped. Accepts the same properties as URL button, except title.
-        :buttons :list Optional. An array of buttons to append to the template. A maximum of 3 buttons per element is supported.
+        :type title: str
+        :param title: The title to display in the template. 80 character limit.
+        :type title: str
+        :type subtitle: *Optional*. The subtitle to display in the template. 80 character limit.
+        :type image_url: str
+        :param image_url: *Optional*. The URL of the image to display in the template.
+        :type default_action: dict
+        :param default_action: *Optional*. The default action executed when the template is tapped. Accepts the same properties as URL button, except title.
+        :type buttons: list
+        :param buttons: *Optional*. An array of buttons to append to the template. A maximum of 3 buttons per element is supported.
+
+        :returns: Returns a single generic template element.
         """
         payload = {
             self.tags.TAG_TITLE: title,
