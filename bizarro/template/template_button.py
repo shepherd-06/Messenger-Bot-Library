@@ -6,7 +6,13 @@ class ButtonTemplate(MotherClass):
     """
     ButtonTemplate class
     """
+
     def __init__(self, facebook_user_id):
+        """
+        initializing template button class with the facebook user_id
+        :type facebook_user_id: str
+        :param facebook_user_id: Current facebook user_id of the message sender.
+        """
         super().__init__()
         self.user_id = facebook_user_id
         self.button_validate = ButtonValidation()
@@ -18,14 +24,15 @@ class ButtonTemplate(MotherClass):
         **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/template/button/
 
         :type title_text: string
-        :param title_text UTF-8-encoded text of up to 640 characters. Text will appear above the buttons.
+        :param title_text: UTF-8-encoded text of up to 640 characters. Text will appear above the buttons.
         :type buttons: list
-        :param buttons :Set of 1-3 buttons that appear as call-to-actions.
+        :param buttons: Set of 1-3 buttons that appear as call-to-actions.
         :type sharable: bool
         :param sharable: *Optional*. Set to true to enable the native share button in Messenger for the template message. Defaults to false.
 
         :returns: Button_Template in the form of a dictionary
         """
+
         if title_text is None or len(title_text) == 0:
             # Error
             self.zathura.insert_error_log(

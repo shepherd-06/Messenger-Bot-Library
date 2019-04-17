@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>2. Welcome to bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Welcome to bizarro’s documentation!" href="list_template.html" />
+    <link rel="prev" title="1. Welcome to bizarro’s documentation!" href="buttons.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-bizarro-s-documentation">
+<h1>2. Welcome to bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generic-template">
+<h2>2.1. Generic Template<a class="headerlink" href="#generic-template" title="Permalink to this headline">¶</a></h2>
+<p>Write stuff here</p>
+<div class="section" id="module-bizarro.template.template_generic">
+<span id="documentation"></span><h3>2.1.1. Documentation<a class="headerlink" href="#module-bizarro.template.template_generic" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="bizarro.template.template_generic.GenericTemplate">
+<em class="property">class </em><code class="descclassname">bizarro.template.template_generic.</code><code class="descname">GenericTemplate</code><span class="sig-paren">(</span><em>facebook_user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.template.template_generic.GenericTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="bizarro.template.template_generic.GenericTemplate.create_single_generic_elements">
+<code class="descname">create_single_generic_elements</code><span class="sig-paren">(</span><em>title: str</em>, <em>subtitle: str = None</em>, <em>image_url: str = None</em>, <em>default_action: dict = None</em>, <em>buttons: list = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.template.template_generic.GenericTemplate.create_single_generic_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array of element objects that describe instances of the generic template to be sent.
+Specifying multiple elements will send a horizontally scrollable carousel of templates.
+A maximum of 10 elements is supported.</p>
+<p><em>This function works for both Generic Element and as well as to create
+an element for share_contents</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – The title to display in the template. 80 character limit.</p></li>
+<li><p><strong>image_url</strong> (<em>str</em>) – <em>Optional</em>. The URL of the image to display in the template.</p></li>
+<li><p><strong>default_action</strong> (<em>dict</em>) – <em>Optional</em>. The default action executed when the template is tapped. Accepts the same properties as URL button, except title.</p></li>
+<li><p><strong>buttons</strong> (<em>list</em>) – <em>Optional</em>. An array of buttons to append to the template. A maximum of 3 buttons per element is supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a single generic template element.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.template.template_generic.GenericTemplate.generate_generic_payload">
+<code class="descname">generate_generic_payload</code><span class="sig-paren">(</span><em>elements: list</em>, <em>shareable: bool = False</em>, <em>image_aspect_ratio: str = 'horizontal'</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.template.template_generic.GenericTemplate.generate_generic_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>The generic template allows you to send a structured message that includes an image, text and buttons.
+A generic template with multiple templates described in the elements array will send a horizontally
+scrollable carousel of items, each composed of an image, text and buttons.</p>
+<p><strong>Reference</strong>: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/template/generic/">https://developers.facebook.com/docs/messenger-platform/reference/template/generic/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> (<em>list</em>) – An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.</p></li>
+<li><p><strong>sharable</strong> – <em>Optional</em>. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.</p></li>
+<li><p><strong>image_aspect_ratio</strong> (<em>str</em>) – <em>Optional</em>. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generate each payload for Generic Template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.template.template_generic.GenericTemplate.generic_template">
+<code class="descname">generic_template</code><span class="sig-paren">(</span><em>elements: list</em>, <em>shareable: bool = False</em>, <em>image_aspect_ratio: str = 'horizontal'</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.template.template_generic.GenericTemplate.generic_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>The generic template allows you to send a structured message that includes an image, text and buttons.
+A generic template with multiple templates described in the elements array will send a horizontally
+scrollable carousel of items, each composed of an image, text and buttons.</p>
+<p><strong>Reference</strong>: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/template/generic/">https://developers.facebook.com/docs/messenger-platform/reference/template/generic/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> (<em>list</em>) – An array of element objects that describe instances of the generic template to be sent. Specifying multiple elements will send a horizontally scrollable carousel of templates. A maximum of 10 elements is supported.</p></li>
+<li><p><strong>sharable</strong> – <em>Optional</em>. Set to true to enable the native share button in Messenger for the template message. Defaults to false. Shareable icon wont come if there are more than one elements.</p></li>
+<li><p><strong>image_aspect_ratio</strong> (<em>str</em>) – <em>Optional</em>. The aspect ratio used to render images specified by element.image_url. Must be horizontal (1.91:1) or square (1:1). Defaults to horizontal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>creates and returns a generic payload</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bizarro.template.template_generic.GenericTemplate.validate_generic_element">
+<code class="descname">validate_generic_element</code><span class="sig-paren">(</span><em>element: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.template.template_generic.GenericTemplate.validate_generic_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the generic elements object against the requirements mentioned on facebook doc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> – dict</p></li>
+<li><p><strong>element</strong> – Element has to be a dictionary (To be validated properly!)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool success is True: DUH!</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="code-example">
+<h3>2.1.2. Code Example<a class="headerlink" href="#code-example" title="Permalink to this headline">¶</a></h3>
+<p>Last Wrote-April 17, 2019</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">bizarro</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="buttons.html">1. Buttons</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Generic Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list_template.html">3. List Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button_template.html">4. Button Template</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="buttons.html" title="previous chapter">1. Welcome to bizarro’s documentation!</a></li>
+      <li>Next: <a href="list_template.html" title="next chapter">3. Welcome to bizarro’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ibtehaz Shawon.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/generic_template.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

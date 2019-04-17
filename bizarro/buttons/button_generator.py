@@ -5,8 +5,8 @@ from bizarro.buttons.button_validator import ButtonValidation
 
 class Button(MotherClass):
     """
-    Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
-    Currently supported button types are:
+    Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform. Currently supported button types are:
+
         * Url Button
         * Postback Button
         * Call Button
@@ -24,7 +24,6 @@ class Button(MotherClass):
                           webview_share_button: str = 'hide', is_default_action: bool = False):
         """
         Also applied as DEFAULT_ACTION in multiple other templates.
-
         **Reference**: https://developers.facebook.com/docs/messenger-platform/reference/buttons/url
 
         Supported usage:

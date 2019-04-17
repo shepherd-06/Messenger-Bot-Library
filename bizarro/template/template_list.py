@@ -17,13 +17,11 @@ class ListTemplate(MotherClass):
         :type title: str
         :param title: String to display as the title of the list item. **80 characters limit**. May be truncated if the title spans too many lines.
         :type subtitle: str
-        :param subtitle: *Optional*. String to display as the subtitle of the list item. **80 characters limit**.
-        May be truncated if the subtitle spans too many lines. Element must have one or both of image_url or subtitle set.
+        :param subtitle: *Optional*. String to display as the subtitle of the list item. **80 characters limit**. May be truncated if the subtitle spans too many lines. Element must have one or both of image_url or subtitle set.
         :type image_url: str
         :param image_url: *Optional*. URL of the image to display in the list item.
         :type default_action: dict
-        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped.
-        Only allowed when messenger_extensions property is set to true
+        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped. Only allowed when messenger_extensions property is set to true
         :type buttons: list
         :param buttons: *Optional*. Button to display on the list item. Maximum of 1 button is supported.
 
@@ -125,16 +123,13 @@ class ListTemplate(MotherClass):
     def create_list_element(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):
         """
         :type title: str
-        :param title: String to display as the title of the list item. **80 character limit**.
-        May be truncated if the title spans too many lines.
+        :param title: String to display as the title of the list item. **80 character limit**. May be truncated if the title spans too many lines.
         :type subtitle: str
-        :param subtitle: *Optional*. String to display as the subtitle of the list item. 80 character limit. May be truncated if the subtitle spans too many lines.
-        Element must have one or both of image_url or subtitle set.
+        :param subtitle: *Optional*. String to display as the subtitle of the list item. 80 character limit. May be truncated if the subtitle spans too many lines. Element must have one or both of image_url or subtitle set.
         :type image_url: str
         :param image_url: *Optional*. URL of the image to display in the list item.
         :type default_action: dict
-        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped.
-        Only allowed when messenger_extensions property is set to true
+        :param default_action: *Optional*. URL button that specifies the default action to execute when the list item is tapped. Only allowed when messenger_extensions property is set to true
         :type buttons: list
         :param buttons: *Optional*. Button to display on the list item. Maximum of 1 button is supported.
 
@@ -163,12 +158,9 @@ class ListTemplate(MotherClass):
     def list_template_payload(self, elements: list, top_element_style: str = "compact", buttons: list = None, sharable: bool = False):
         """
         :type elements: list
-        :param elements: Array of objects that describe items in the list.
-        **Minimum of 2 elements required. Maximum of 4 elements is supported.**
+        :param elements: Array of objects that describe items in the list. *Minimum of 2 elements required. Maximum of 4 elements is supported.**
         :type top_element_style: str
-        :param top_element_style: *Optional*. Sets the format of the first list items. *Messenger web client currently only renders compact.*
-                                ** compact: Renders a plain list item.
-                                ** large: Renders the first list item as a cover item.
+        :param top_element_style: *Optional*. Sets the format of the first list items. *Messenger web client currently only renders compact.* ** compact: Renders a plain list item. ** large: Renders the first list item as a cover item.
         :type buttons: list
         :param buttons: *Optional*. Button to display at the bottom of the list. **Maximum of 1 button is supported**
         :type sharable: bool

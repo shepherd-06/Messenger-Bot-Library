@@ -60,9 +60,13 @@ Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :titlesonly:
+   :numbered:
 
-   buttons
+   Buttons <buttons>
+   Generic Template <generic_template>
+   List Template <list_template>
+   Button Template <button_template>
 
 
 

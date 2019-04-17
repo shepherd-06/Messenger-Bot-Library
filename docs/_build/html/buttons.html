@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
+    <title>1. Welcome to bizarro’s documentation! &#8212; bizarro v0.0.0.1.dev7 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Welcome to bizarro’s documentation!" href="generic_template.html" />
     <link rel="prev" title="Welcome to Bizarro’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -32,9 +33,9 @@
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-bizarro-s-documentation">
-<h1>Welcome to bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>1. Welcome to bizarro’s documentation!<a class="headerlink" href="#welcome-to-bizarro-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="buttons">
-<h2>Buttons<a class="headerlink" href="#buttons" title="Permalink to this headline">¶</a></h2>
+<h2>1.1. Buttons<a class="headerlink" href="#buttons" title="Permalink to this headline">¶</a></h2>
 <p>Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
 Currently, the supported button types are
 * Url Button
@@ -43,12 +44,11 @@ Currently, the supported button types are
 * <em>Share Button</em> (This might be little buggy! I have not been able to run a full test on it yet)</p>
 <p>Please check Facebook’s documentation for more information. See the <strong>Reference</strong> url on top of every buttons.</p>
 <div class="section" id="module-bizarro.buttons.button_generator">
-<span id="documentation"></span><h3>Documentation<a class="headerlink" href="#module-bizarro.buttons.button_generator" title="Permalink to this headline">¶</a></h3>
+<span id="documentation"></span><h3>1.1.1. Documentation<a class="headerlink" href="#module-bizarro.buttons.button_generator" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="bizarro.buttons.button_generator.Button">
 <em class="property">class </em><code class="descclassname">bizarro.buttons.button_generator.</code><code class="descname">Button</code><a class="headerlink" href="#bizarro.buttons.button_generator.Button" title="Permalink to this definition">¶</a></dt>
-<dd><p>Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform
-Currently supported button types are:</p>
+<dd><p>Button class Generates multiple types of button to use in different templates and replies for Messenger Bot Platform. Currently supported button types are:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Url Button</p></li>
@@ -152,8 +152,8 @@ If you specify a new generic template, the message recipient will be able to add
 <dl class="method">
 <dt id="bizarro.buttons.button_generator.Button.create_url_button">
 <code class="descname">create_url_button</code><span class="sig-paren">(</span><em>title: str</em>, <em>url: str</em>, <em>webview_height_ratio: str = 'full'</em>, <em>messenger_extensions: bool = False</em>, <em>fallback_url: str = ''</em>, <em>webview_share_button: str = 'hide'</em>, <em>is_default_action: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#bizarro.buttons.button_generator.Button.create_url_button" title="Permalink to this definition">¶</a></dt>
-<dd><p>Also applied as DEFAULT_ACTION in multiple other templates.</p>
-<p><strong>Reference</strong>: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/buttons/url">https://developers.facebook.com/docs/messenger-platform/reference/buttons/url</a></p>
+<dd><p>Also applied as DEFAULT_ACTION in multiple other templates.
+<strong>Reference</strong>: <a class="reference external" href="https://developers.facebook.com/docs/messenger-platform/reference/buttons/url">https://developers.facebook.com/docs/messenger-platform/reference/buttons/url</a></p>
 <dl class="simple">
 <dt>Supported usage:</dt><dd><ul class="simple">
 <li><p>Persistent menu</p></li>
@@ -186,7 +186,7 @@ If you specify a new generic template, the message recipient will be able to add
 
 </div>
 <div class="section" id="code-example">
-<h3>Code Example<a class="headerlink" href="#code-example" title="Permalink to this headline">¶</a></h3>
+<h3>1.1.2. Code Example<a class="headerlink" href="#code-example" title="Permalink to this headline">¶</a></h3>
 <p>Last Wrote-April 09, 2019</p>
 </div>
 </div>
@@ -210,10 +210,10 @@ If you specify a new generic template, the message recipient will be able to add
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to bizarro’s documentation!</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#buttons">Buttons</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic_template.html">2. Generic Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list_template.html">3. List Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button_template.html">4. Button Template</a></li>
 </ul>
 
 <div class="relations">
@@ -221,6 +221,7 @@ If you specify a new generic template, the message recipient will be able to add
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Welcome to Bizarro’s documentation!</a></li>
+      <li>Next: <a href="generic_template.html" title="next chapter">2. Welcome to bizarro’s documentation!</a></li>
   </ul></li>
 </ul>
 </div>
