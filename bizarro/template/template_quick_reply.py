@@ -9,7 +9,8 @@ class QuickReply():
 
     def __init__(self, user_id: str):
         """
-        user_id: current user_id of the particular user
+        :type user_id: str
+        :param user_id: current user_id of the particular user from Facebook
         """
         self.user_id = user_id
         self.utility = Utility()
@@ -18,10 +19,17 @@ class QuickReply():
 
     def quick_reply(self, title: str, payload: list):
         """
-        attachment is not enabled at this moment. This will generate a complete payload for the quick reply
-        title: str contains the title of the quick reply payload.
-        payload: list payload generated from quick_reply_payload_generator function.
-        returns _quick_reply_complete_payload
+        *attachment is not enabled at this moment.*
+        This will generate a complete payload for the quick reply
+
+        **Reference**: "https://developers.facebook.com/docs/messenger-platform/reference/send-api/quick-replies/"
+
+        :type title: str
+        :param title: Contains the title of the quick reply payload.
+        :type payload: list
+        :param payload: payload generated from quick_reply_payload_generator function.
+
+        :returns: Returns complete payload for Quick Reply
         """
         zathura_error_name = "quick_reply"
         if type(payload) != list:
@@ -49,8 +57,11 @@ class QuickReply():
 
     def __quick_reply_payload_validation(self, payload: list):
         """
-        this function validate the quick reply payload before sending it back to 
-        calling function.
+        this function validate the quick reply payload before sending it back to calling function.
+
+        :type payload: list
+        :param payload: payload to check if it pass the validation to be used as a payload for Quick Reply. **Maximum of 11 quick reply items are allowed**
+        :returns: bool
         """
         error_name = "q_reply_payload_validation"
         if len(payload) > 11:
@@ -99,21 +110,20 @@ class QuickReply():
 
     def quick_reply_create(self, content_type: str, title_text: str = '', payload: str = '', image_url: str = ''):
         """
-        generates a single entry payload for quick reply. It makes it easier to generate 
-        payload for quick reply
-        content_type: str text, location, user_phone_number, user_email
-        title_text: 1) contains titles of each field. maximum of 11 quick replies are supported.
-                    2) Required if content_type is 'text'. 
-                    3) The text to display on the quick reply button.
-                    4) 20 characters limit.
-        payload: 1) Required if content_type is 'text'. 
-                 2) Custom data that will be sent back to you via the messaging_postbacks webhook event.
-                 3) 1000 characters limit.
-                 4) May be set to an empty string if image_url is set.
-        image_url: 1) Optional. URL of image to display on the quick reply button for text quick replies.
-                   2) Image should be a minimum of 24px x 24px. Larger images will be automatically cropped and resized.
-                   3) Required if title is an empty string.
-        title_text, payload and image_url must have non zero list, if required set the value of every index to empty string to avoid confusion.
+        generates a single entry payload for quick reply. It makes it easier to generate payload for quick reply
+
+        **Reference**: "https://developers.facebook.com/docs/messenger-platform/reference/send-api/quick-replies/"
+
+        :type content_type: str
+        :param content_type: content_type can be text, location, user_phone_number, user_email
+        :type title_text: str
+        :param title_text: The text to display on the quick reply button. **maximum of 11 quick replies are supported.** **Required** if content_type is 'text'. *20 characters limit*.
+        :type payload: str
+        :param payload: **Required if *content_type* is 'text'**. Custom data that will be sent back to you via the *messaging_postbacks webhook event*. **1000 characters limit**. *May set to an empty string if **image_url** is set.*
+        :type image_url: str
+        :param image_url: *Optional.* URL of image to display on the quick reply button for text quick replies. **Image should be a minimum of 24px x 24px.** Larger images will be automatically cropped and resized. **Required if title is an empty string.**
+
+        :returns: A single item for quick reply
         """
         error_name = 'quick_reply_create'
         if content_type == Tags.TAG_CONTENT_TYPE_TEXT:

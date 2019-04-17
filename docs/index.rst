@@ -67,6 +67,7 @@ Contents
    Generic Template <generic_template>
    List Template <list_template>
    Button Template <button_template>
+   Quick Reply Template <quick_reply>
 
 
 
