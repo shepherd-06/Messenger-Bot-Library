@@ -10,7 +10,7 @@ Write stuff here
 =============
 Documentation
 =============
-.. automodule:: bizarro.template.template_quick_reply
+.. automodule:: bizarro.template.template_quick_reply.QuickReply
     :members:
 
 ============

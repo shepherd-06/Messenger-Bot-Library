@@ -68,6 +68,7 @@ Contents
    List Template <list_template>
    Button Template <button_template>
    Quick Reply Template <quick_reply>
+   Utility Functions <utility>
 
 
 

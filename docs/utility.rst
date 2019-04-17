@@ -1,16 +1,16 @@
 Welcome to bizarro's documentation!
 ===================================
 
-********************
-Quick Reply Template
-********************
+***********************
+Basic Utility Functions
+***********************
 
 Write stuff here
 
 =============
 Documentation
 =============
-.. automodule:: bizarro.template.template_quick_reply.QuickReply
+.. automodule:: bizarro.utility.util
     :members:
 
 ============

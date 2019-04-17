@@ -14,8 +14,11 @@ class Utility:
     def url_validation(url: str):
         """
         url validation takes a str to be matched against regex.
-        :url the url in str
-        :returns bool
+
+        :type url: str
+        :param url: "url" that needs to be validated!
+
+        :returns: bool
         """
         regex = re.compile(
             r'^(?:http|ftp)s?://'  # http:// or https://
@@ -30,9 +33,12 @@ class Utility:
     @staticmethod
     def https_url_validation(url: str):
         """
-        url validation takes a str to be matched against regex.
-        :url the url in str
-        :returns bool
+        url validation takes a str to be matched against regex. This is if the url has to be https.
+
+        :type url: str
+        :param url: "url" that needs to be validated in https or ftps (secure) format.
+
+        :returns: bool
         """
         regex = re.compile(
             r'^(?:https|ftps)?://'  # http:// or https://
@@ -47,8 +53,12 @@ class Utility:
     @staticmethod
     def create_basic_recipient(user_id: str):
         """
-        :param user_id: facebook users user id.
-        :return: creates the receipients payload
+        Creates the template for recipient. I use it to generate the recipients in every cases.
+
+        :type user_id: str
+        :param user_id: facebook users user_id.
+
+        :return: creates the recipients payload
         """
         return {
             Tags.TAG_RECIPIENT: {
@@ -58,9 +68,13 @@ class Utility:
 
     def typing_on(self, user_id: str, waiting_period: float = 1.5):
         """
-        private function, turns on typing function, sleep 3s before doing anything else.
-        :param waiting_period:
-        :param user_id:
+        Creates a payload for typing_on function. However, if your code sends any message before the waiting period, the typing_on function will disappear. You have to wait before sending the message.
+
+        :type waiting_period: float
+        :param waiting_period: Amount of seconds to wait aka show typing_on icon on messenger platform
+        :type user_id: str
+        :param user_id: facebook user_id
+
         :return: returns the payload for typing_on function
         """
         payload = self.create_basic_recipient(user_id)
@@ -69,8 +83,11 @@ class Utility:
 
     def marked_seen(self, user_id):
         """
-        marked last message as seen in case there is no definitive action to be taken!
+        Creates a payload so you can mark the last message as seen.
+
+        :type user_id: str
         :param user_id: facebook user id
+
         :return: payload to create a mark_seen on facebook messenger platform
         """
         payload = self.create_basic_recipient(user_id)
@@ -79,10 +96,14 @@ class Utility:
 
     def basic_text_reply_payload(self, user_id: str, message: str):
         """
-        this functions generates the payload for basic text reply
+        this functions generates the payload for basic text reply. sends the string for *message* as a normal message.
+
+        :type user_id: str
         :param user_id: user_id of a particular user_id
-        :param message: message user going to see
-        :return: payload
+        :type message: str
+        :param message: message user is going to see. *Message text cannot be None and must be less than **2000 characters**.*
+
+        :returns: payload for basic text reply,
         """
         if message is None or len(message) > 2000:
             self.zathura.insert_error_log(user=user_id, error_name="message length exceeds limit or None",
@@ -100,7 +121,15 @@ class Utility:
         return payload
 
     @staticmethod
-    def whitelist_domain(url):
+    def whitelist_domain(url: str):
+        """
+        Creates a payload for domain whitelist. You should not use it. It's experimental.
+
+        :type url: str
+        :param url: url that has to be whitelisted
+
+        :returns: returns the payload for domain whitelist.
+        """
         return {
             Tags.TAG_WHITELISTED_DOMAINS: url,
         }
