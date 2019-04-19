@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.com/ibtehaz-shawon/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/ibtehaz-shawon/bizarro)  [![CircleCI](https://circleci.com/gh/ibtehaz-shawon/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/ibtehaz-shawon/bizarro)
 [![python](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg)](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
 
-``` .o8        o8o                                                   
+```
+ .o8        o8o                                                   
 "888        `"'                                                   
  888oooo.  oooo    oooooooo  .oooo.   oooo d8b oooo d8b  .ooooo.  
  d88' `88b `888   d'""7d8P  `P  )88b  `888""8P `888""8P d88' `88b 
