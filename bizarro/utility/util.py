@@ -58,7 +58,7 @@ class Utility:
         :type user_id: str
         :param user_id: facebook users user_id.
 
-        :return: creates the recipients payload
+        :return: :dict
         """
         return {
             Tags.TAG_RECIPIENT: {
@@ -75,7 +75,7 @@ class Utility:
         :type user_id: str
         :param user_id: facebook user_id
 
-        :return: returns the payload for typing_on function
+        :return: :dict
         """
         payload = self.create_basic_recipient(user_id)
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_TYPING_ON
@@ -88,7 +88,7 @@ class Utility:
         :type user_id: str
         :param user_id: facebook user id
 
-        :return: payload to create a mark_seen on facebook messenger platform
+        :return: :dict
         """
         payload = self.create_basic_recipient(user_id)
         payload[Tags.TAG_SENDER_ACTION] = Tags.TAG_MARK_SEEN
@@ -103,7 +103,7 @@ class Utility:
         :type message: str
         :param message: message user is going to see. *Message text cannot be None and must be less than **2000 characters**.*
 
-        :returns: payload for basic text reply,
+        :returns: :dict
         """
         if message is None or len(message) > 2000:
             self.zathura.insert_error_log(user=user_id, error_name="message length exceeds limit or None",
@@ -128,7 +128,7 @@ class Utility:
         :type url: str
         :param url: url that has to be whitelisted
 
-        :returns: returns the payload for domain whitelist.
+        :returns: :dict
         """
         return {
             Tags.TAG_WHITELISTED_DOMAINS: url,

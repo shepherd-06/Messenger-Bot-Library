@@ -29,7 +29,7 @@ class QuickReply():
         :type payload: list
         :param payload: payload generated from quick_reply_payload_generator function.
 
-        :returns: Returns complete payload for Quick Reply
+        :returns: :dict
         """
         zathura_error_name = "quick_reply"
         if type(payload) != list:
@@ -61,6 +61,7 @@ class QuickReply():
 
         :type payload: list
         :param payload: payload to check if it pass the validation to be used as a payload for Quick Reply. **Maximum of 11 quick reply items are allowed**
+
         :returns: bool
         """
         error_name = "q_reply_payload_validation"
@@ -123,7 +124,7 @@ class QuickReply():
         :type image_url: str
         :param image_url: *Optional.* URL of image to display on the quick reply button for text quick replies. **Image should be a minimum of 24px x 24px.** Larger images will be automatically cropped and resized. **Required if title is an empty string.**
 
-        :returns: A single item for quick reply
+        :returns: :dict
         """
         error_name = 'quick_reply_create'
         if content_type == Tags.TAG_CONTENT_TYPE_TEXT:
