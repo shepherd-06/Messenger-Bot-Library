@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/ibtehaz-shawon/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/ibtehaz-shawon/bizarro)  [![CircleCI](https://circleci.com/gh/ibtehaz-shawon/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/ibtehaz-shawon/bizarro)
-[![python](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg)](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.com/p1r-a-t3/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/p1r-a-t3/bizarro)  [![CircleCI](https://circleci.com/gh/p1r-a-t3/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/p1r-a-t3/bizarro)
+[![python](https://img.shields.io/badge/python-3-blue)](https://img.shields.io/badge/python-3-blue) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
 
 ```
  .o8        o8o                                                   
