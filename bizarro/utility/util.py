@@ -1,14 +1,8 @@
 import re
 from bizarro.utility.tag import Tags
-from ZathuraProject.zathura import Zathura
-from ZathuraProject.utility import Utility as zathura_utility
 
 
 class Utility:
-
-    def __init__(self):
-        self.zathura = Zathura()
-        self.z_utility = zathura_utility()
 
     @staticmethod
     def url_validation(url: str):
@@ -106,8 +100,6 @@ class Utility:
         :returns: :dict
         """
         if message is None or len(message) > 2000:
-            self.zathura.insert_error_log(user=user_id, error_name="message length exceeds limit or None",
-                                          error_description="Either message length exceeds 2000 characters limit or None. Message: {}".format(message), warning=self.z_utility.Tag_Log_ERROR)
             return None
 
         payload = {

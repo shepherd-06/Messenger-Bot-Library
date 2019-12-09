@@ -1,7 +1,5 @@
 from bizarro.utility.tag import Tags
 from bizarro.utility.util import Utility
-from ZathuraProject.zathura import Zathura
-from ZathuraProject.utility import Utility as ZathuraUtility
 
 
 class QuickReply():
@@ -14,8 +12,6 @@ class QuickReply():
         """
         self.user_id = user_id
         self.utility = Utility()
-        self.zathura = Zathura()
-        self.zathura_utility = ZathuraUtility()
 
     def quick_reply(self, title: str, payload: list):
         """
@@ -31,19 +27,12 @@ class QuickReply():
 
         :returns: :dict
         """
-        zathura_error_name = "quick_reply"
         if type(payload) != list:
-            self.zathura.insert_error_log(
-                self.user_id, zathura_error_name, "payload should be a list not a {}".format(type(payload)), self.zathura_utility.Tag_Log_ERROR)
             return
         if not self.__quick_reply_payload_validation(payload):
-            self.zathura.insert_error_log(
-                self.user_id, zathura_error_name, "quick reply payload invalid", self.zathura_utility.Tag_Log_ERROR)
             return
 
         if title is None or len(title) == 0:
-            self.zathura.insert_error_log(
-                self.user_id, zathura_error_name, "quick reply title cannot be None or empty string", self.zathura_utility.Tag_Log_ERROR)
             return
         message = {
             Tags.TAG_TEXT: title,
@@ -52,7 +41,6 @@ class QuickReply():
         quick_reply_payload = self.utility.create_basic_recipient(
             self.user_id)
         quick_reply_payload[Tags.TAG_MESSAGE] = message
-        self.zathura.insert_debug_log(quick_reply_payload)
         return quick_reply_payload
 
     def __quick_reply_payload_validation(self, payload: list):
@@ -67,8 +55,6 @@ class QuickReply():
         error_name = "q_reply_payload_validation"
         if len(payload) > 11:
             # error - payload cannot have more than 11 items
-            self.zathura.insert_error_log(
-                self.user_id, error_name, '"A maximum of 11 quick replies are supported"', self.zathura_utility.Tag_Log_ERROR)
             return False
         for items in payload:
             if Tags.TAG_CONTENT_TYPE in items:
@@ -83,18 +69,12 @@ class QuickReply():
                         if len(_image_url) > 0:
                             if not Utility.url_validation(_image_url):
                                 # url is not valid
-                                self.zathura.insert_error_log(
-                                    self.user_id, error_name, 'image_url invalid', self.zathura_utility.Tag_Log_ERROR)
                                 return False
                     if _title is None and _image_url is None:
                         # error:
-                        self.zathura.insert_error_log(
-                            self.user_id, error_name, 'title and image_url both are none', self.zathura_utility.Tag_Log_ERROR)
                         return False
                     if _image_url is None and _payload is None:
                         # error
-                        self.zathura.insert_error_log(
-                            self.user_id, error_name, 'payload and image_url both are none', self.zathura_utility.Tag_Log_ERROR)
                         return False
                 else:
                     if Tags.TAG_IMAGE_URL in items:
@@ -102,8 +82,6 @@ class QuickReply():
                         if len(_image_url) > 0:
                             if not Utility.url_validation(_image_url):
                                 # url is not valid.
-                                self.zathura.insert_error_log(
-                                    self.user_id, error_name, 'url is not valid', self.zathura_utility.Tag_Log_ERROR)
                                 return False
             else:
                 return False
@@ -130,29 +108,19 @@ class QuickReply():
         if content_type == Tags.TAG_CONTENT_TYPE_TEXT:
             if len(payload) > 1000:
                 # error - length of payload cannot exceed 1000 characters limit
-                self.zathura.insert_error_log(
-                    self.user_id, error_name, 'payload length is more 1000 chars', self.zathura_utility.Tag_Log_ERROR)
                 return {}
             if len(title_text) > 20:
                 # generate soft warning message.
-                self.zathura.insert_error_log(
-                    self.user_id, error_name, 'title length is more 20 characters limit. Excess chars will be truncated!', self.zathura_utility.Tag_Log_WARNING)
                 pass  # this is a warning
             if title_text == '' and image_url == '':
                 # generate error. both cannot be empty
-                self.zathura.insert_error_log(
-                    self.user_id, error_name, 'title and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
                 return {}
             if payload == '' and image_url == '':
                 # generate error, both cannot be empty
-                self.zathura.insert_error_log(
-                    self.user_id, error_name, 'payload and image_url both cannot be empty for the same object', self.zathura_utility.Tag_Log_ERROR)
                 return {}
             if len(image_url) != 0:
                 # if there is any value in image_url then it would be checked
                 if not Utility.url_validation(image_url):
-                    self.zathura.insert_error_log(
-                        self.user_id, error_name, 'image url is not valid.', self.zathura_utility.Tag_Log_ERROR)
                     return {}
         return {
             Tags.TAG_CONTENT_TYPE: content_type,

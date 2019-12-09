@@ -55,35 +55,22 @@ class GenericTemplate(MotherClass):
         """
         if elements is None or len(elements) == 0:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_template", "elements cannot be None or an empty "
-                                                                            "list. Elements: {}".format(
-                elements), self.zathura_utility.Tag_Log_ERROR)
             return None
         if len(elements) > 10:
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_template", "Maximum 10 elements are allowed. "
-                                                                            "Elements: {}".format(
-                len(elements)), self.zathura_utility.Tag_Log_ERROR)
             return None
 
         if image_aspect_ratio not in (self.tags.TAG_IMAGE_ASPECT_RATIO_SQ, self.tags.TAG_IMAGE_ASPECT_RATIO_HR):
             # Error
-            self.zathura.insert_error_log(self.user_id, "generic_template", "Image aspect ratio can either be horizontal or square. Image Aspect Ratio: {}".format(
-                image_aspect_ratio), self.zathura_utility.Tag_Log_ERROR)
             return None
 
         if type(shareable) != bool:
-            self.zathura.insert_error_log(self.user_id, "generic_template", "Shareable can either be True or False. "
-                                                                            "shareable: {}".format(
-                shareable), self.zathura_utility.Tag_Log_ERROR)
             return None
 
         # Check & Validate every single elements object
         for element in elements:
             if not self.validate_generic_element(element):
                 # Error - Not validated
-                self.zathura.insert_error_log(
-                    self.user_id, "generic_template", "Element did not pass validation", self.zathura_utility.Tag_Log_ERROR)
                 return None
 
         payload = {
@@ -118,24 +105,18 @@ class GenericTemplate(MotherClass):
         error_name = "Validate Generic Element"
         if title is None or len(title) == 0:
             # Error
-            self.zathura.insert_error_log(self.user_id, error_name, "Title cannot be None or empty length. Title: {}".format(
-                title), self.zathura_utility.Tag_Log_ERROR)
             return False
         if len(title) > 80:
             # Not Error. Bt Extra chars will be trimmed off
-            self.zathura.insert_error_log(self.user_id, error_name, "Title length is more than 80 chars limit. Title: {}".format(
-                len(title)), self.zathura_utility.Tag_Log_INFO)
+            pass
         if subtitle is not None:
             if len(subtitle) > 80:
                 # Not Error. Bt Extra chars will be trimmed off
-                self.zathura.insert_error_log(self.user_id, error_name, "Subtitle length is more than 80 chars limit. Subtitle: {}".format(
-                    len(subtitle)), self.zathura_utility.Tag_Log_INFO)
+                pass
         if image_url is not None:
             # Url validation
             if not (self.utility.url_validation(image_url)):
                 # Error
-                self.zathura.insert_error_log(self.user_id, error_name, "Image url is not valid. image_url: {}".format(
-                    len(image_url)), self.zathura_utility.Tag_Log_WARNING)
                 return False
 
         if image_url is None and subtitle is None:
@@ -145,21 +126,15 @@ class GenericTemplate(MotherClass):
             # button validation
             if not self.btn_validation.button_validation(default_action, self.tags.TAG_WEB_URL):
                 # Error - Validate against web_url only for default_action btn
-                self.zathura.insert_error_log(
-                    self.user_id, error_name, "Default action button has not validate against web_url type", self.zathura_utility.Tag_Log_WARNING)
                 return False
         if buttons is not None:
             # buttons validation
             if len(buttons) > 3:
                 # Error
-                self.zathura.insert_error_log(self.user_id, error_name, "At max 3 buttons is allowed for generic template. Current Buttons: {}".format(
-                    len(buttons)), self.zathura_utility.Tag_Log_ERROR)
                 return False
             for btn in buttons:
                 if not self.btn_validation.button_validation(btn):
                     # Error - validate against all button type
-                    self.zathura.insert_error_log(
-                        self.user_id, error_name, "Buttons of generic type has not passed validation", self.zathura_utility.Tag_Log_ERROR)
                     return False
         if default_action is None and buttons is None:
             # Error

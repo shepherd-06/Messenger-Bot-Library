@@ -35,32 +35,22 @@ class ButtonTemplate(MotherClass):
 
         if title_text is None or len(title_text) == 0:
             # Error
-            self.zathura.insert_error_log(
-                self.user_id, "title", "title is either None or len = 0. Title {}".format(title_text), self.zathura_utility.Tag_Log_ERROR)
             return
 
         if len(title_text) > 640:
             # Probably Warning
-            self.zathura.insert_error_log(self.user_id, "title", "Length of title text is more 640 chars. Title {}".format(
-                len(title_text)), self.zathura_utility.Tag_Log_ERROR)
             return
 
         if buttons is None or len(buttons) == 0:
             # Error
-            self.zathura.insert_error_log(
-                self.user_id, "buttons", "buttons is either None or len = 0. Title {}".format(buttons), self.zathura_utility.Tag_Log_ERROR)
             return
 
         if len(buttons) > 3:
             # Error
-            self.zathura.insert_error_log(self.user_id, "buttons", "There must be AT MAX 3 buttons. Buttons: {}".format(
-                len(buttons)), self.zathura_utility.Tag_Log_WARNING)
             return
         for button in buttons:
             if not self.button_validate.button_validation(button):
                 # Error
-                self.zathura.insert_error_log(
-                    self.user_id, "buttons", "Buttons did not validate the correct format", self.zathura_utility.Tag_Log_ERROR)
                 return
 
         # Now create payload

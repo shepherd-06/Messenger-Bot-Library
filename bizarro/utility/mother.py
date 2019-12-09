@@ -1,5 +1,3 @@
-from ZathuraProject.zathura import Zathura
-from ZathuraProject.utility import Utility as zathura_utility
 from bizarro.utility.util import Utility
 from bizarro.utility.tag import Tags
 import logging
@@ -12,8 +10,6 @@ class MotherClass:
     """
 
     def __init__(self):
-        self.zathura = Zathura()
-        self.zathura_utility = zathura_utility()
         self.utility = Utility()
         self.tags = Tags
         self.logger = logging.getLogger('bizarro')

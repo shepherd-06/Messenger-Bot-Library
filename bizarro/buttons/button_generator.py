@@ -52,70 +52,38 @@ class Button(MotherClass):
         user = "create_url_button"
         if not is_default_action:
             if title is None or len(title) <= 0:
-                self.zathura.insert_error_log(user, "title", "title is None or len is zero. Title: {}".format(
-                    title), self.zathura_utility.Tag_Log_ERROR)
                 return
 
             if len(title) > 20:
                 # Error / Warning
-                self.zathura.insert_error_log(user, "title", "title len is more than 20. Title: {}".format(
-                    title), self.zathura_utility.Tag_Log_WARNING)
                 pass
 
         if url is None or len(url) <= 0:
             # Error
-            self.zathura.insert_error_log(
-                user, "url", "url is None or len is zero. Url: {}".format(url), self.zathura_utility.Tag_Log_ERROR)
             return
         if not self.utility.url_validation(url):
             # Error
-            self.zathura.insert_error_log(
-                user, "url", "url did not validate itself as web_url. Url: {}".format(url),
-                self.zathura_utility.Tag_Log_ERROR)
             return
 
         if webview_height_ratio not in (
                 Tags.TAG_WEBVIEW_HEIGHT_RATIO_COMAPCT, Tags.TAG_WEBVIEW_HEIGHT_RATIO_FULL,
                 Tags.TAG_WEBVIEW_HEIGHT_RATIO_TALL):
             # error
-            self.zathura.insert_error_log(
-                user, "webview_height_ratio",
-                "webview_height_ratio did not match the 3 choices. webview_height_ratio: {}".format(
-                    webview_height_ratio), self.zathura_utility.Tag_Log_ERROR)
             return
 
         if messenger_extensions:
             if not self.utility.https_url_validation(url):
                 # ERROR
-                self.zathura.insert_error_log(
-                    user, "url", "url has to be HTTPS if messenger_extensions is True. Url: {}".format(url),
-                    self.zathura_utility.Tag_Log_ERROR)
-
                 return
             if fallback_url is None or len(fallback_url) == 0:
                 # Error
-                self.zathura.insert_error_log(
-                    user, "fallback_url",
-                    "Fallback url has to be present if messenger_extension is True. fallback_url: {}".format(
-                        fallback_url), self.zathura_utility.Tag_Log_ERROR)
-
                 return
             if not self.utility.https_url_validation(fallback_url):
                 # Error
-                self.zathura.insert_error_log(
-                    user, "fallback_url",
-                    "Fallback url has to be HTTPS if messenger_extensions is True. fallback_url: {}".format(
-                        fallback_url), self.zathura_utility.Tag_Log_ERROR)
-
                 return
 
         if not webview_share_button in (Tags.TAG_SHARE_HIDE, Tags.TAG_SHARE_SHOW):
             # Error
-            self.zathura.insert_error_log(
-                user, "webview_share_button",
-                "webview_share_button value did not match the values required. Its either hide | show. "
-                "webview_share_button: {}".format(
-                    webview_share_button), self.zathura_utility.Tag_Log_ERROR)
             return
         if is_default_action:
             if messenger_extensions:
@@ -186,25 +154,17 @@ class Button(MotherClass):
 
         if title is None or title == '':
             # Error
-            self.zathura.insert_error_log(
-                user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
             return
 
         if len(title) > 20:
-            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(
-                title), warning=self.zathura_utility.Tag_Log_WARNING)
             pass
 
         if payload is None or payload == '':
             # Error
-            self.zathura.insert_error_log(
-                user, "payload", "payload is None or empty string. Payload: {}".format(payload), warning=4)
             return
 
         if len(payload) > 1000:
             # Error
-            self.zathura.insert_error_log(
-                user, "payload", "payload is more than 1000 chars long. Payload: {}".format(payload), warning=4)
             return
 
         return {
@@ -237,33 +197,21 @@ class Button(MotherClass):
 
         if title is None or title == '':
             # Error
-            self.zathura.insert_error_log(
-                user, "title", "title is None or empty string. Title: {}".format(title), warning=4)
             return
 
         if len(title) > 20:
-            self.zathura.insert_error_log(user, "title", "title is more than 20 chars long. Title: {}".format(
-                title), warning=self.zathura_utility.Tag_Log_WARNING)
             pass
 
         if phone_number is None or phone_number == '':
             # Error
-            self.zathura.insert_error_log(
-                user, "phone_number", "phone_number is None or empty string. phone_number: {}".format(phone_number),
-                warning=4)
             return
         try:
             _phone_number = phonenumbers.parse(phone_number, None)
         except phonenumbers.phonenumberutil.NumberParseException:
-            self.zathura.insert_error_log(
-                user, "phone_number", "Missing or invalid default region. Phone number: {}".format(phone_number),
-                warning=4)
             return
 
         if not phonenumbers.is_valid_number(_phone_number):
             # Error
-            self.zathura.insert_error_log(
-                user, "phone_number", "phone_number is not valid: {}".format(phone_number), warning=4)
             return
 
         return {

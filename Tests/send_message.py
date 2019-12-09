@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_api import status
 from decouple import config
-from ZathuraProject.zathura import Zathura
 
 app = Flask(__name__)
 
@@ -10,7 +9,6 @@ class Facebook:
 
     # This is a test suite for facebook messenger service.
     def __init__(self):
-        self.zathura = Zathura()
         self.__reply_url = config("facebook_graph_api_url") + \
             config("page_access_token")
 
@@ -24,9 +22,6 @@ class Facebook:
                 response = requests.get(self.__reply_url)
             else:
                 response = requests.post(self.__reply_url, json=payload)
-            if response.status_code != 200:
-                self.zathura.insert_error_log("facebook", "send_message - {}".format(
-                    response.status_code), "Message - {}".format(response.text), warning=5)
             return response.status_code
         except Exception as error:
             print("Error occurred {}".format(error))
