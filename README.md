@@ -1,20 +1,20 @@
-[![Build Status](https://travis-ci.com/ibtehaz-shawon/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/ibtehaz-shawon/bizarro)  [![CircleCI](https://circleci.com/gh/ibtehaz-shawon/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/ibtehaz-shawon/bizarro)
-[![python](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg)](https://img.shields.io/badge/python-%3E%3D3-brightgreen.svg) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.com/p1r-a-t3/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/p1r-a-t3/bizarro)  [![CircleCI](https://circleci.com/gh/p1r-a-t3/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/p1r-a-t3/bizarro)
+[![python](https://img.shields.io/badge/python-3-blue)](https://img.shields.io/badge/python-3-blue) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
 
 ```
- .o8        o8o                                                   
-"888        `"'                                                   
+ .o8        o8o
+"888        `"'
  888oooo.  oooo    oooooooo  .oooo.   oooo d8b oooo d8b  .ooooo.  
- d88' `88b `888   d'""7d8P  `P  )88b  `888""8P `888""8P d88' `88b 
- 888   888  888     .d8P'    .oP"888   888      888     888   888 
- 888   888  888   .d8P'  .P d8(  888   888      888     888   888 
- `Y8bod8P' o888o d8888888P  `Y888""8o d888b    d888b    `Y8bod8P' 
+ d88' `88b `888   d'""7d8P  `P  )88b  `888""8P `888""8P d88' `88b
+ 888   888  888     .d8P'    .oP"888   888      888     888   888
+ 888   888  888   .d8P'  .P d8(  888   888      888     888   888
+ `Y8bod8P' o888o d8888888P  `Y888""8o d888b    d888b    `Y8bod8P'
 ```
 
 # Bizarro
 
 =======================================
-Bizarro is a python library for Facebook Messenger Bot. It's basic task is to help developers creating payloads for Facebook Messenger Bot. 
+Bizarro is a python library for Facebook Messenger Bot. It's basic task is to help developers creating payloads for Facebook Messenger Bot.
 Facebook has different templates and buttons for their Messenger Platform. However, it's extremely tedious to write the payload every time. Bizarro here can help you to write awesome bot without
 worrying about the payload. All you need to do is send the necessary text inputs and bizarro's function will return the appropriate payload for you.
 Bizarro takes help of one of my other python package - __Zathura__, (A sqlite3 logger I wrote for one of my package).
