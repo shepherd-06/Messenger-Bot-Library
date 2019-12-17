@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/p1r-a-t3/bizarro.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/p1r-a-t3/bizarro)  [![CircleCI](https://circleci.com/gh/p1r-a-t3/bizarro.svg?style=svg&circle-token=00c9babf5256214ac6a5fd895dcca5ac1ed63fe4)](https://circleci.com/gh/p1r-a-t3/bizarro)
+[![Build Status](https://travis-ci.com/p1r-a-t3/FB_Bot.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/p1r-a-t3/FB_Bot)
 [![python](https://img.shields.io/badge/python-3-blue)](https://img.shields.io/badge/python-3-blue) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
 
 ```
