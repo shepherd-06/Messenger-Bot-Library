@@ -1,28 +1,21 @@
-[![Build Status](https://travis-ci.com/p1r-a-t3/FB_Bot.svg?token=CfEhnav87YzYRHHfKnNf&branch=master)](https://travis-ci.com/p1r-a-t3/FB_Bot)
-[![python](https://img.shields.io/badge/python-3-blue)](https://img.shields.io/badge/python-3-blue) [![Documentation Status](https://readthedocs.org/projects/bizarro/badge/?version=latest)](https://bizarro.readthedocs.io/en/latest/?badge=latest)
-
 ```
- .o8        o8o
-"888        `"'
- 888oooo.  oooo    oooooooo  .oooo.   oooo d8b oooo d8b  .ooooo.  
- d88' `88b `888   d'""7d8P  `P  )88b  `888""8P `888""8P d88' `88b
- 888   888  888     .d8P'    .oP"888   888      888     888   888
- 888   888  888   .d8P'  .P d8(  888   888      888     888   888
- `Y8bod8P' o888o d8888888P  `Y888""8o d888b    d888b    `Y8bod8P'
+██████   █████  ███████ ███████ ███    ███ ███████ ███    ██ ████████ 
+██   ██ ██   ██ ██      ██      ████  ████ ██      ████   ██    ██    
+██████  ███████ ███████ █████   ██ ████ ██ █████   ██ ██  ██    ██    
+██   ██ ██   ██      ██ ██      ██  ██  ██ ██      ██  ██ ██    ██    
+██████  ██   ██ ███████ ███████ ██      ██ ███████ ██   ████    ██    
+                                                                                                                                         
 ```
 
-# Bizarro
+# Messenger Bot Library
 
-=======================================
-Bizarro is a python library for Facebook Messenger Bot. It's basic task is to help developers creating payloads for Facebook Messenger Bot.
-Facebook has different templates and buttons for their Messenger Platform. However, it's extremely tedious to write the payload every time. Bizarro here can help you to write awesome bot without
-worrying about the payload. All you need to do is send the necessary text inputs and bizarro's function will return the appropriate payload for you.
-Bizarro takes help of one of my other python package - __Zathura__, (A sqlite3 logger I wrote for one of my package).
-Currently, the library is in alpha version.
+Messenger Bot Library (formerly known as bizarro) is a python library for Facebook Messenger Bot. Its basic task is to help developers creating payloads for Facebook Messenger Bot.
+Facebook has different templates and buttons for its Messenger Platform. However, it's extremely tedious to write payload every time. This library is here to help you build a bot without worrying about the payload. All you need to do is send the necessary inputs and this library will return the appropriate payload for you.
+
 
 ## How to Install
 
-It's a pypi package (https://pypi.org/project/bizarro/). So
+It's a PyPI package (**https://pypi.org/project/bizarro/**). So
 
 `pip install bizarro`
 
@@ -41,21 +34,10 @@ Right now, bizarro has support for the following
 6) Template
     1) Button Template
     2) Generic Template
-    3) List Template
+    3) ~~List Template~~ ([List Template was deprecated on July 29, 2019](https://developers.facebook.com/docs/messenger-platform/send-messages/template/list/))
 
 Attachment sending is not enabled in any other buttons or template right now. They will be rolled out in upcoming versions.
 
-## How to work with bizarro
+## Documentation
 
-Suppose you want to send user a simple "Hello"
-
-```from bizarro.utility.util import Utility
-
-echo_text = bizarro_utility().basic_text_reply_payload(fb_user_id, message="Hello")
-```
-
-now all you have to do is, send the payload __echo_text__ with your page_access_token.
-Code examples are coming soon.
-
-----------------------------------
-Thank you, Ibtehaz, December 09, 2019
+[The documentation of this project is on the wiki page.](https://github.com/p1r-a-t3/FB_Bot/wiki/Documentation)
