@@ -9,10 +9,10 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-setup(name='bizarro',  # alternative name docket
-      packages=['bizarro', 'bizarro.utility',
-                'bizarro.template', 'bizarro..buttons'],
-      version='1.0.2.alpha',
+setup(name='messenger_bot_library',  # alternative name docket
+      packages=['messenger_bot', 'messenger_bot.utility',
+                'messenger_bot.template', 'messenger_bot..buttons'],
+      version='2.0.0.alpha',
       description='',
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -25,7 +25,7 @@ setup(name='bizarro',  # alternative name docket
       ],
       entry_points={
           'console_scripts': [
-              'bizarro = bizarro.__init__:create_app'
+              'messenger_bot = messenger_bot.__init__:create_app'
           ]
       },
       classifiers=[
