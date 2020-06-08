@@ -38,4 +38,4 @@ Right now, bizarro has support for the following
 
 Attachment sending is not enabled in any other buttons or template right now. They will be rolled out in upcoming versions.
 
-[The documentation of this project is on the wiki page.] (https://github.com/p1r-a-t3/FB_Bot/wiki/Documentation)
+Documentation: ([The documentation of this project is on the wiki page.](https://github.com/p1r-a-t3/FB_Bot/wiki/Documentation))
