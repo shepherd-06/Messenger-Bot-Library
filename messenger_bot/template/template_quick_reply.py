@@ -33,14 +33,12 @@ class QuickReply():
         :returns: :dict
         """
         if type(payload) != list:
-            print("quick_reply - payload/element is not list")
             logging.error("quick_reply - payload/element is not list")
             return
         if not self.__quick_reply_payload_validation(payload):
             return
 
         if title is None or len(title) == 0:
-            print("quick_reply - title is either None or empty string")
             logging.error("quick_reply - title is either None or empty string")
             return
         message = {
@@ -65,8 +63,6 @@ class QuickReply():
             # error - payload cannot have more than 13 items
             logging.error(
                 "quick_reply_payload_validation - payload cannot have more than 13 items")
-            print(
-                "quick_reply_payload_validation - payload cannot have more than 13 items")
             return False
         for items in payload:
             if Tags.TAG_CONTENT_TYPE in items:
@@ -83,21 +79,15 @@ class QuickReply():
                                 # url is not valid
                                 logging.error(
                                     "quick_reply_payload_validation - URL is not valid")
-                                print(
-                                    "quick_reply_payload_validation - URL is not valid for an item")
                                 return False
                     if _title is None and _image_url is None:
                         # error:
                         logging.error(
                             "quick_reply_payload_validation - title and image_url are None")
-                        print(
-                            "quick_reply_payload_validation - title and image_url are both None")
                         return False
                     if _image_url is None and _payload is None:
                         # error
                         logging.error(
-                            "quick_reply_payload_validation - image_url and payload are both None")
-                        print(
                             "quick_reply_payload_validation - image_url and payload are both None")
                         return False
                 else:
@@ -107,8 +97,6 @@ class QuickReply():
                             if not MessengerUtility.url_validation(_image_url):
                                 # url is not valid.
                                 logging.error(
-                                    "quick_reply_payload_validation - image url is not valid")
-                                print(
                                     "quick_reply_payload_validation - image url is not valid")
                                 return False
             else:
@@ -137,7 +125,6 @@ class QuickReply():
                 # error - length of payload cannot exceed 1000 characters limit
                 logging.error(
                     "quick_reply_create - text is more than 1000 characters.")
-                print("quick_reply_create - text is more than 1000 characters.")
                 return {}
             if len(title_text) > 20:
                 # generate soft warning message.
@@ -148,14 +135,10 @@ class QuickReply():
                 # generate error. both cannot be empty
                 logging.error(
                     "quick_reply_create - both title_text and image_url cannot be empty at the same time.")
-                print(
-                    "quick_reply_create - both title_text and image_url cannot be empty at the same time.")
                 return {}
             if payload == '' and image_url == '':
                 # generate error, both cannot be empty
                 logging.error(
-                    "quick_reply_create - payload text and image_url cannot be empty at the same time.")
-                print(
                     "quick_reply_create - payload text and image_url cannot be empty at the same time.")
                 return {}
             if len(image_url) != 0:
@@ -163,7 +146,6 @@ class QuickReply():
                 if not MessengerUtility.url_validation(image_url):
                     logging.error(
                         "quick_reply_create - image url did not pass URL validation")
-                    print("quick_reply_create - image url did not pass URL validation")
                     return {}
         return {
             Tags.TAG_CONTENT_TYPE: content_type,

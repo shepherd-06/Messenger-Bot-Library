@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, request, jsonify
 from flask_api import status
 from decouple import config
@@ -22,10 +24,10 @@ class Facebook:
                 response = requests.get(self.__reply_url)
             else:
                 response = requests.post(self.__reply_url, json=payload)
-            print(response.content)
+            logging.debug(response.content)
             return response.status_code
         except Exception as error:
-            print("Error occurred {}".format(error))
+            logging.exception("Error occurred {}".format(error))
             return None
 
 

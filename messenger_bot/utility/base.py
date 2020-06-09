@@ -10,9 +10,9 @@ class BaseClass:
     """
 
     def __init__(self):
-        self.utility = Utility()
+        self.utility = MessengerUtility()
         self.tags = Tags
-        self.logger = logging.getLogger('bizarro')
+        self.logger = logging.getLogger('messenger_bot_library')
         __formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         __log_stream_handler = logging.StreamHandler()

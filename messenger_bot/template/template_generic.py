@@ -1,5 +1,7 @@
-from messenger_bot.utility.base import BaseClass
+import logging
+
 from messenger_bot.buttons.button_validator import ButtonValidation
+from messenger_bot.utility.base import BaseClass
 
 
 class GenericTemplate(BaseClass):
@@ -26,17 +28,16 @@ class GenericTemplate(BaseClass):
 
         :returns: creates and returns a generic payload
         """
-        message = self.generate_generic_payload(
+        message = self.__generate_generic_payload(
             elements, shareable, image_aspect_ratio)
         if message is None:
-            # cause validatio in another function.
             return None
         else:
             generic_payload = self.utility.create_basic_recipient(self.user_id)
             generic_payload[self.tags.TAG_MESSAGE] = message
             return generic_payload
 
-    def generate_generic_payload(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
+    def __generate_generic_payload(self, elements: list, shareable: bool = False, image_aspect_ratio: str = "horizontal"):
         """
         The generic template allows you to send a structured message that includes an image, text and buttons.
         A generic template with multiple templates described in the elements array will send a horizontally
@@ -55,22 +56,29 @@ class GenericTemplate(BaseClass):
         """
         if elements is None or len(elements) == 0:
             # Error
+            logging.error("generic_template - elements are None or empty list")
             return None
         if len(elements) > 10:
             # Error
+            logging.error(
+                "generic_template - There are more than 10 elements on the list")
             return None
 
         if image_aspect_ratio not in (self.tags.TAG_IMAGE_ASPECT_RATIO_SQ, self.tags.TAG_IMAGE_ASPECT_RATIO_HR):
             # Error
+            logging.error(
+                "generic_template - image aspect ratio did not match the criteria")
             return None
 
         if type(shareable) != bool:
+            logging.error("generic_template - shareable is not a boolean")
             return None
 
         # Check & Validate every single elements object
         for element in elements:
             if not self.validate_generic_element(element):
                 # Error - Not validated
+                logging.error("generic_template - validation error of an element")
                 return None
 
         payload = {
@@ -96,50 +104,56 @@ class GenericTemplate(BaseClass):
         :returns: bool success is True: DUH!
         """
         if element is None:
+            logging.error("validate_generic_element - No element")
             return False
         title = element[self.tags.TAG_TITLE] if self.tags.TAG_TITLE in element else None
         subtitle = element[self.tags.TAG_SUBTITLE] if self.tags.TAG_SUBTITLE in element else None
         image_url = element[self.tags.TAG_IMAGE_URL] if self.tags.TAG_IMAGE_URL in element else None
         default_action = element[self.tags.TAG_DEFAULT_ACTION] if self.tags.TAG_DEFAULT_ACTION in element else None
         buttons = element[self.tags.TAG_BUTTONS] if self.tags.TAG_BUTTONS in element else None
-        error_name = "Validate Generic Element"
+
         if title is None or len(title) == 0:
             # Error
+            logging.error(
+                "validate_generic_element - title is None or empty string")
             return False
         if len(title) > 80:
             # Not Error. Bt Extra chars will be trimmed off
-            pass
+            logging.warn(
+                "validate_generic_element - title has more 80 characters.")
         if subtitle is not None:
             if len(subtitle) > 80:
                 # Not Error. Bt Extra chars will be trimmed off
-                pass
+                logging.warn(
+                    "validate_generic_element - subtitle has more than 80 characters")
         if image_url is not None:
             # Url validation
             if not (self.utility.url_validation(image_url)):
                 # Error
+                logging.error(
+                    "validate_generic_element - image_url validation failed")
                 return False
 
-        if image_url is None and subtitle is None:
-            self.logger.info(
-                "It would be better for the users if you add a subtitle or an image_url. It's better for the story you are trying to tell.")
         if default_action is not None:
             # button validation
             if not self.btn_validation.button_validation(default_action, self.tags.TAG_WEB_URL):
                 # Error - Validate against web_url only for default_action btn
+                logging.error(
+                    "validate_generic_element - default action button validation failed")
                 return False
         if buttons is not None:
             # buttons validation
             if len(buttons) > 3:
                 # Error
+                logging.error(
+                    "validate_generic_element - maximum 3 buttons are allowed")
                 return False
             for btn in buttons:
                 if not self.btn_validation.button_validation(btn):
                     # Error - validate against all button type
+                    logging.error(
+                        "validate_generic_element - button validation failed!")
                     return False
-        if default_action is None and buttons is None:
-            # Error
-            self.logger.info(
-                "You can create a generic element without any default action or buttons. However, wouldn't it be wiser if user actually able to click and do something with that card?")
         return True
 
     def create_single_generic_elements(self, title: str, subtitle: str = None, image_url: str = None, default_action: dict = None, buttons: list = None):

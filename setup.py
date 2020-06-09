@@ -11,12 +11,12 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(name='messenger_bot_library',  # alternative name docket
       packages=['messenger_bot', 'messenger_bot.utility',
-                'messenger_bot.template', 'messenger_bot..buttons'],
-      version='2.0.0.alpha',
-      description='',
+                'messenger_bot.template', 'messenger_bot.buttons'],
+      version='2.0.1.beta',
+      description='A python package that helps you to create payload for facebook messenger bot.',
       long_description=long_description,
       long_description_content_type='text/markdown',
-      url='https://github.com/p1r-a-t3/FB_Bot',
+      url='https://github.com/p1r-a-t3/Messenger-Bot-Library',
       author='p1r-a-t3',
       author_email='ibtehaz.92@gmail.com',
       license='MIT',

@@ -1,3 +1,5 @@
+import logging
+
 from messenger_bot.buttons.button_validator import ButtonValidation
 from messenger_bot.utility.base import BaseClass
 
@@ -35,22 +37,27 @@ class ButtonTemplate(BaseClass):
 
         if title_text is None or len(title_text) == 0:
             # Error
+            logging.error("button_template - title is None or empty string")
             return
 
         if len(title_text) > 640:
             # Probably Warning
+            logging.warn("button_template - title text has more than 640 characters")
             return
 
         if buttons is None or len(buttons) == 0:
             # Error
+            logging.error("button_template - buttons are None or there are no buttons on the list")
             return
 
         if len(buttons) > 3:
             # Error
+            logging.error("button_template - there are more than 3 buttons on the list")
             return
         for button in buttons:
             if not self.button_validate.button_validation(button):
                 # Error
+                logging.error("button_template - button validation error")
                 return
 
         # Now create payload

@@ -104,11 +104,8 @@ class MessengerUtility:
         if message is None or len(message) > 2000:
             if message is None:
                 logging.error("basic_text_reply_payload - message is None.")
-                print("basic_text_reply_payload - message is None.")
             else:
                 logging.error(
-                    "basic_text_reply_payload - message length is {}, limit is 2000 characters".format(len(message)))
-                print(
                     "basic_text_reply_payload - message length is {}, limit is 2000 characters".format(len(message)))
             return None
 

@@ -1,6 +1,8 @@
-from messenger_bot.utility.tag import Tags
-from messenger_bot.utility.base import BaseClass
+import logging
+
 from messenger_bot.buttons.button_validator import ButtonValidation
+from messenger_bot.utility.base import BaseClass
+from messenger_bot.utility.tag import Tags
 
 
 class Button(BaseClass):
@@ -10,7 +12,6 @@ class Button(BaseClass):
         * Url Button
         * Postback Button
         * Call Button
-        * *Share Button* (This might be little buggy! I have not been able to run a full test on it yet)
 
     Please check Facebook's documentation for more information. See the **Reference** url on top of every buttons.
     """
@@ -32,7 +33,6 @@ class Button(BaseClass):
         Supported usage:
            * Persistent menu
            * Generic template
-           * List template
            * Button template
            * Media template
            * Open graph template
@@ -52,48 +52,64 @@ class Button(BaseClass):
 
         :returns: a dictionary in the format for web_url button template
         """
-        user = "create_url_button"
         if not is_default_action:
             if title is None or len(title) <= 0:
+                logging.error(
+                    "create_url_button - title is None or title is empty string")
                 return
 
             if len(title) > 20:
                 # Error / Warning
-                pass
+                logging.warn(
+                    "create_url_button - title has more than 20 characters")
+        else:
+            title = ""
 
         if url is None or len(url) <= 0:
             # Error
+            logging.error(
+                "create_url_button - url is None or url is an empty string")
             return
         if not self.utility.url_validation(url):
             # Error
+            logging.error("create_url_button - URL validation failed")
             return
 
         if webview_height_ratio not in (
                 Tags.TAG_WEBVIEW_HEIGHT_RATIO_COMAPCT, Tags.TAG_WEBVIEW_HEIGHT_RATIO_FULL,
                 Tags.TAG_WEBVIEW_HEIGHT_RATIO_TALL):
             # error
+            logging.error(
+                "create_url_button - webview height ratio option error")
             return
 
         if messenger_extensions:
+            logging.info(
+                "create_url_button - fallback URL has to be added on whitelist domain list.")
             if not self.utility.https_url_validation(url):
                 # ERROR
+                logging.error(
+                    "create_url_button - HTTPS URL validation failed for messenger extension")
                 return
             if fallback_url is None or len(fallback_url) == 0:
                 # Error
+                logging.error(
+                    "create_url_button - Fallback URL is required in messenger extension")
                 return
             if not self.utility.https_url_validation(fallback_url):
                 # Error
+                logging.error(
+                    "create_url_button - Fallback URL has to be HTTPS for messenger extension")
                 return
 
         if not webview_share_button in (Tags.TAG_SHARE_HIDE, Tags.TAG_SHARE_SHOW):
             # Error
+            logging.error(
+                "create_url_button - webview share button option is invalid")
             return
         if is_default_action:
             if messenger_extensions:
                 # These fields will only required if the messenger_extension is TRUE!
-                self.logger.warning(
-                    "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else "
-                    "message won't be sent!")
                 return {
                     Tags.TAG_TYPE: Tags.TAG_WEB_URL,
                     Tags.TAG_URL: url,
@@ -109,10 +125,6 @@ class Button(BaseClass):
                 }
         else:
             if messenger_extensions:
-                # These fields will only required if the messenger_extension is TRUE!
-                self.logger.warning(
-                    "Since messenger extension is True, fallback_url must be whitelisted on your page. Or else "
-                    "message won't be sent!")
                 return {
                     Tags.TAG_TYPE: Tags.TAG_WEB_URL,
                     Tags.TAG_URL: url,
@@ -153,21 +165,27 @@ class Button(BaseClass):
 
         :return: A postback type button payload
         """
-        user = "create_postback_button"
-
         if title is None or title == '':
             # Error
+            logging.error(
+                "create_postback_button - title is None or title is empty string")
             return
 
         if len(title) > 20:
+            logging.warn(
+                "create_postback_button - title has more than 20 characters")
             pass
 
         if payload is None or payload == '':
             # Error
+            logging.error(
+                "create_postback_button - payload is None or empty string")
             return
 
         if len(payload) > 1000:
             # Error
+            logging.error(
+                "create_postback_button - payload has more than 1000 characters")
             return
 
         return {
@@ -196,25 +214,29 @@ class Button(BaseClass):
         :return: Returns a button payload which enables the user to dial a certain number. Number might appear on their dial-pad. User have to manually press the dial button
         """
         import phonenumbers
-        user = "create_log_in_button"
-
+        
         if title is None or title == '':
             # Error
+            logging.error("create_call_button - title is None or empty string")
             return
 
         if len(title) > 20:
+            logging.warn("create_call_button - title has more than 20 characters")
             pass
 
         if phone_number is None or phone_number == '':
             # Error
+            logging.error("create_call_button - phone_number is None or empty string.")
             return
         try:
             _phone_number = phonenumbers.parse(phone_number, None)
         except phonenumbers.phonenumberutil.NumberParseException:
+            logging.error("create_call_button - phone_number parse exception")
             return
 
         if not phonenumbers.is_valid_number(_phone_number):
             # Error
+            logging.error("create_call_button - phone_number is invalid")
             return
 
         return {
@@ -222,53 +244,3 @@ class Button(BaseClass):
             Tags.TAG_TITLE: title,
             Tags.TAG_PAYLOAD: phone_number,
         }
-
-    def create_share_button(self, share_contents: dict = None):
-        """
-        **Reference:** https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#share
-
-        The share button allows the message recipient to share the content of a message you sent with others on Messenger. The name and icon of your Page appear as an attribution at the top of the shared content.
-        The attribution opens a conversation with your bot when tapped.
-        With the share button, you can share the exact message or specify a new generic template message in the share_contents property.
-        If you specify a new generic template, the message recipient will be able to add a message to the share. This is useful if you want change the look or add content to the original message.
-
-        The share button is supported for use with the following:
-            * Generic template
-            * List template
-            * Media template
-
-        :type share_contents: dict
-        :param share_contents: For share buttons using the element_share feature, only the **Generic Template** with *one URL button* is supported.
-
-        *share_contents* only supports the following:
-                * Template used must be generic template.
-                * Maximum of one URL button on the template.
-                * If no buttons are specified, the buttons property on the generic template must be set to an empty array.
-
-        :return: creates a payload which enable user to share the content of a message.
-        """
-        if share_contents is None:
-            return {
-                "type": "element_share"
-            }
-        else:
-            """
-            To create a share element, I will send a request to generic_element to 
-            create_single_generic_elements function. This will run an initial validation
-            against the parameters given, however, this won't pass for share element
-            so I will send the share_element to btn_validation class to validate again.
-            User will:
-            1) create a default_action btn from btn class
-            2) create a btn array 
-            3) call create_single_generic_elements function
-            4) send the package to generate_generic_payload
-            5) that would be share_elements which comes here
-            This shit is little confusing at this moment. I think i need to trim it down a little bit later
-            """
-            if not self.btn_validation.validate_generic_share_elements(share_contents):
-                return {
-                    self.tags.TAG_TYPE: self.tags.TAG_ELEMENT_SHARE,
-                    self.tags.TAG_SHARE_CONTENTS: share_contents
-                }
-            else:
-                return None
