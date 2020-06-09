@@ -1,12 +1,3 @@
-```
-██████   █████  ███████ ███████ ███    ███ ███████ ███    ██ ████████ 
-██   ██ ██   ██ ██      ██      ████  ████ ██      ████   ██    ██    
-██████  ███████ ███████ █████   ██ ████ ██ █████   ██ ██  ██    ██    
-██   ██ ██   ██      ██ ██      ██  ██  ██ ██      ██  ██ ██    ██    
-██████  ██   ██ ███████ ███████ ██      ██ ███████ ██   ████    ██    
-                                                                                                                                         
-```
-
 # Messenger Bot Library
 
 Messenger Bot Library (formerly known as bizarro) is a python library for Facebook Messenger Bot. Its basic task is to help developers creating payloads for Facebook Messenger Bot.
@@ -15,13 +6,13 @@ Facebook has different templates and buttons for its Messenger Platform. However
 
 ## How to Install
 
-It's a PyPI package (**https://pypi.org/project/bizarro/**). So
+It's a [PyPI package](https://pypi.org/project/messenger-bot-library/).
 
-`pip install bizarro`
+`pip install messenger-bot-library`
 
 ## Current support
 
-Right now, bizarro has support for the following 
+Right now, bizarro has support for the following
 
 1) Echo Back (Simple text reply)
 2) Quick Reply
