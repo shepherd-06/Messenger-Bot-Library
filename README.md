@@ -40,4 +40,4 @@ Attachment sending is not enabled in any other buttons or template right now. Th
 
 ## Documentation
 
-[The documentation of this project is on the wiki page.](https://github.com/p1r-a-t3/FB_Bot/wiki/Documentation)
+[The documentation of this project is on the wiki page.](https://github.com/p1r-a-t3/Messenger-Bot-Library/wiki)
