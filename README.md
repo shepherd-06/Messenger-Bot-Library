@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.org/p1r-a-t3/Messenger-Bot-Library.svg?branch=master)](https://travis-ci.org/p1r-a-t3/Messenger-Bot-Library
+
 # Messenger Bot Library
 
 Messenger Bot Library (formerly known as bizarro) is a python library for Facebook Messenger Bot. Its basic task is to help developers creating payloads for Facebook Messenger Bot.
 Facebook has different templates and buttons for its Messenger Platform. However, it's extremely tedious to write payload every time. This library is here to help you build a bot without worrying about the payload. All you need to do is send the necessary inputs and this library will return the appropriate payload for you.
-
 
 ## How to Install
 
