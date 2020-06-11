@@ -1,21 +1,27 @@
 import unittest
-from bizarro.template.template_quick_reply import QuickReply
+
+from decouple import config
+from messenger_bot.template.template_quick_reply import QuickReply
+from messenger_bot.utility.tag import Tags
+
 from Tests.send_message import Facebook
-from bizarro.utility.tag import Tags
 
 
 class TestQuickReply(unittest.TestCase):
 
     @classmethod
-    def setUpClass(self):
-        self.facebook = Facebook()
-        self.test_user = "1475588502509679"
+    def setUpClass(cls):
+        cls.facebook = Facebook()
+        cls.test_user = config("test_facebook_user", None)
 
     @classmethod
-    def tearDownClass(self):
-        del self.facebook
+    def tearDownClass(cls):
+        del cls.facebook
 
     def test_quick_reply(self):
+        """
+        This the only test functions contains 5 phases. 
+        """
         q_reply = QuickReply(self.test_user)
 
         # ---------------------------------------
@@ -69,7 +75,7 @@ class TestQuickReply(unittest.TestCase):
         for _ in range(0, 11):
             title_text = "Title Title {}".format(_)
             payload = "vikings_{}".format(_)
-            image_url = "https://adventures.is/wp-content/uploads/2017/06/eyjafjallajokull-glacier-volcano-iceland1.jpg"
+            image_url = config("test_url", None)
 
             import random
             x = random.randint(2, 10)
@@ -99,7 +105,7 @@ class TestQuickReply(unittest.TestCase):
         for _ in range(0, 14):
             title_text = "Test 5 Title {}".format(_)
             payload = "vikings_{}".format(_)
-            image_url = "https://adventures.is/wp-content/uploads/2017/06/eyjafjallajokull-glacier-volcano-iceland1.jpg"
+            image_url = config("test_url", None)
 
             import random
             x = random.randint(2, 10)
@@ -115,9 +121,10 @@ class TestQuickReply(unittest.TestCase):
 
             test_5_payload.append(q_reply.quick_reply_create(
                 content_type, title_text, payload, image_url))
-        
+
         test_5_quick_reply_payload = q_reply.quick_reply(
             "Test 5 Quick Reply Payload", test_5_payload)
-        self.assertEqual(type(test_5_quick_reply_payload), type(None), "Oh Crap!")
+        self.assertEqual(type(test_5_quick_reply_payload),
+                         type(None), "Oh Crap!")
         status_code = self.facebook.send_message(test_5_quick_reply_payload)
         self.assertEqual(status_code, 400, "This better be 400!")

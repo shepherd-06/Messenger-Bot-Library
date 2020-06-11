@@ -1,6 +1,9 @@
 import unittest
-from bizarro.template.template_generic import GenericTemplate
-from bizarro.buttons.button_generator import Button
+
+from decouple import config
+from messenger_bot.buttons.button_generator import Button
+from messenger_bot.template.template_generic import GenericTemplate
+
 from Tests.send_message import Facebook
 
 
@@ -8,10 +11,11 @@ class TestGenericTemplate(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.generic_template = GenericTemplate("1475588502509679")
+        cls.generic_template = GenericTemplate(
+            config("test_facebook_user", None))
         cls.button = Button()
         cls.facebook = Facebook()
-        cls.url = "https://adventures.is/wp-content/uploads/2017/06/eyjafjallajokull-glacier-volcano-iceland1.jpg"
+        cls.url = config("test_url", None)
 
     @classmethod
     def tearDownClass(cls):
