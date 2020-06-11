@@ -1,8 +1,10 @@
+import json
 import logging
 
 from flask import Flask, request, jsonify
 from flask_api import status
 from decouple import config
+from messenger_bot.utility.util import MessengerUtility
 
 app = Flask(__name__)
 
@@ -41,5 +43,60 @@ def index():
                 status='Access Restricted',
                 status_code=status.HTTP_401_UNAUTHORIZED,
             )
+    elif request.method == 'POST':
+        incoming_message = json.loads((request.data).decode("utf-8"))
+        messenger_util = MessengerUtility()
+        for entry in incoming_message["entry"]:
+            if "messaging" in entry:
+                for message in entry["messaging"]:
+                    if "message" in message:
+                        if "is_echo" in message["message"]:
+                            return '', status.HTTP_200_OK
+                        elif "quick_reply" in message["message"]:
+                            # sender_id = message["sender"]["id"]
+                            # text = "Received a message from user: {}".format(
+                            #     sender_id)
+                            # payload = messenger_util.basic_text_reply_payload(
+                            #     sender_id, text)
+                            # Facebook().send_message(payload)
+                            return '', status.HTTP_200_OK
+                        elif "text" in message["message"]:
+                            sender_id = message["sender"]["id"]
+                            if 'message' in message:
+                                user_message = message['message']['text'] if 'text' in message['message'] else None
+                            else:
+                                user_message = None
+                            if user_message is None:
+                                user_message = "Hello"
+
+                            payload = messenger_util.basic_text_reply_payload(
+                                sender_id, user_message)
+                            Facebook().send_message(payload)
+
+                            text = "Received a message from user: {}".format(
+                                sender_id)
+                            payload = messenger_util.basic_text_reply_payload(
+                                sender_id, text)
+                            Facebook().send_message(payload)
+                            return '', status.HTTP_200_OK
+                        elif "read" in message["message"]:
+                            return '', status.HTTP_200_OK
+                        else:
+                            return '', status.HTTP_200_OK
+                    elif "delivery" in message:
+                        return '', status.HTTP_200_OK
+                    elif "read" in message:
+                        return '', status.HTTP_200_OK
+                    elif "postback" in message:
+                        return '', status.HTTP_200_OK
+                    else:
+                        return '', status.HTTP_200_OK
+            elif "standby" in entry:
+                return '', status.HTTP_200_OK
+            else:
+                return '', status.HTTP_200_OK
     else:
-        return '', status.HTTP_200_OK
+        return jsonify(
+            status='Access Restricted',
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
