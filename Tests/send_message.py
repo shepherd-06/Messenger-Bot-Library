@@ -26,6 +26,7 @@ class Facebook:
             else:
                 response = requests.post(self.__reply_url, json=payload)
             logging.debug(response.content)
+            print(response.content)
             return response.status_code
         except Exception as error:
             logging.exception("Error occurred {}".format(error))
