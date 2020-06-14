@@ -4,7 +4,6 @@ import logging
 from flask import Flask, request, jsonify
 from flask_api import status
 from decouple import config
-from messenger_bot.utility.util import MessengerUtility
 
 app = Flask(__name__)
 
@@ -45,7 +44,6 @@ def index():
             )
     elif request.method == 'POST':
         incoming_message = json.loads((request.data).decode("utf-8"))
-        messenger_util = MessengerUtility()
         for entry in incoming_message["entry"]:
             if "messaging" in entry:
                 for message in entry["messaging"]:
@@ -53,12 +51,6 @@ def index():
                         if "is_echo" in message["message"]:
                             return '', status.HTTP_200_OK
                         elif "quick_reply" in message["message"]:
-                            # sender_id = message["sender"]["id"]
-                            # text = "Received a message from user: {}".format(
-                            #     sender_id)
-                            # payload = messenger_util.basic_text_reply_payload(
-                            #     sender_id, text)
-                            # Facebook().send_message(payload)
                             return '', status.HTTP_200_OK
                         elif "text" in message["message"]:
                             sender_id = message["sender"]["id"]
@@ -69,13 +61,27 @@ def index():
                             if user_message is None:
                                 user_message = "Hello"
 
-                            payload = messenger_util.basic_text_reply_payload(
+                            def __custom_basic_payload(sender_id, user_message):
+                                """
+                                created a custom function to avoid dependencies on chatbot. 
+                                It does not have any validation like the original function. 
+                                """
+                                return {
+                                    "recipient": {
+                                        "id": sender_id
+                                    },
+                                    "message": {
+                                        "text": user_message
+                                    }
+                                }
+
+                            payload = __custom_basic_payload(
                                 sender_id, user_message)
                             Facebook().send_message(payload)
 
                             text = "Received a message from user: {}".format(
                                 sender_id)
-                            payload = messenger_util.basic_text_reply_payload(
+                            payload = __custom_basic_payload(
                                 sender_id, text)
                             Facebook().send_message(payload)
                             return '', status.HTTP_200_OK

@@ -18,7 +18,7 @@ class TestQuickReply(unittest.TestCase):
     def tearDownClass(cls):
         del cls.facebook
 
-    def test_quick_reply(self):
+    def test_case_one_two(self):
         """
         This the only test functions contains 5 phases. 
         """
@@ -34,27 +34,29 @@ class TestQuickReply(unittest.TestCase):
             "text", "Hello_World", "123456", "")
 
         test_1_quick_reply_payload = q_reply.quick_reply(
-            "Title_text", [test_1_payload])
+            "test_case_one_two", [test_1_payload])
         test_2_quick_reply_payload = q_reply.quick_reply(
-            "Title_text", [test_2_payload])
+            "test_case_one_two", [test_2_payload])
 
         self.assertNotEqual(type(test_1_quick_reply_payload), dict,
-                            "Test_1_You shall not PASSSSSSSS")
+                            "Test_1 You shall not Pass")
         self.assertEqual(type(test_2_quick_reply_payload), dict,
-                         "Test_2_This is suppose to be a dictionary to be passed!")
+                         "Test_2 This is suppose to be a dictionary to be passed!")
         status_code = self.facebook.send_message(test_1_quick_reply_payload)
         self.assertEqual(status_code, 400,
-                         "This better be 400 or something like that!")
+                         "This test case must be 400!")
         status_code = self.facebook.send_message(test_2_quick_reply_payload)
         self.assertEqual(status_code, 200, "This better be 200!")
 
+    def test_case_three(self):
         # ---------------------------------------
         # Test phase 3:
         # ---------------------------------------
-        # Run All Text based - 11 in total. All goes normal. Nothing changei changei
+        # Run All Text based - 13 in total. All goes normal. Nothings Changed
+        q_reply = QuickReply(self.test_user)
         test_3_payload = list()
-        for _ in range(0, 11):
-            title_text = "Humbda Dumda {}".format(_)
+        for _ in range(0, 13):
+            title_text = "test_case_three {}".format(_)
             payload = "123123dfjf"
             image_url = "https://developers.facebook.com/docs/messenger-platform/reference/send-api/quick-replies/"
             test_3_payload.append(q_reply.quick_reply_create(
@@ -63,17 +65,18 @@ class TestQuickReply(unittest.TestCase):
             "Title Text", test_3_payload)
         self.assertEqual(type(test_3_quick_reply_payload), dict, "Oh Crap!")
         status_code = self.facebook.send_message(test_3_quick_reply_payload)
-        self.assertEqual(status_code, 200, "This better be 200!")
+        self.assertEqual(status_code, 200, "All Should go normal here!")
 
+    def test_case_four(self):
         # ---------------------------------------
         # Test Phase 4
         # ---------------------------------------
         # This test case is suppose to break down somewhere down the line.
         # This will be random Totes
-
+        q_reply = QuickReply(self.test_user)
         test_4_payload = list()
         for _ in range(0, 11):
-            title_text = "Title Title {}".format(_)
+            title_text = "test_case_four {}".format(_)
             payload = "vikings_{}".format(_)
             image_url = config("test_url", None)
 
@@ -94,16 +97,21 @@ class TestQuickReply(unittest.TestCase):
 
         test_4_quick_reply_payload = q_reply.quick_reply(
             "Test 4 Quick Reply Payload", test_4_payload)
-        self.assertEqual(type(test_4_quick_reply_payload), dict, "Oh Crap!")
-        status_code = self.facebook.send_message(test_4_quick_reply_payload)
-        self.assertEqual(status_code, 200, "This better be 200!")
+        self.assertEqual(type(test_4_quick_reply_payload),
+                         dict, "Oh Crap!")
+        status_code = self.facebook.send_message(
+            test_4_quick_reply_payload)
+        self.assertEqual(status_code, 400,
+                         "This test case is suppose to breakdown!")
 
+    def test_case_five(self):
+        q_reply = QuickReply(self.test_user)
         # ---------------------------------------
         # Test Phase 5
         # ---------------------------------------
         test_5_payload = list()
         for _ in range(0, 14):
-            title_text = "Test 5 Title {}".format(_)
+            title_text = "test_case_five {}".format(_)
             payload = "vikings_{}".format(_)
             image_url = config("test_url", None)
 
