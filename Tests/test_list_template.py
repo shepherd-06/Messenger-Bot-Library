@@ -45,3 +45,5 @@ class TestListTemplate(unittest.TestCase):
 
         status_code = self.facebook.send_message(payload)
         self.assertEqual(status_code, 400, "test_one - list_template -> 400")
+        logging.critical(
+            "Deprecation Warning! List Template has been depcreated on July 29, 2019")
