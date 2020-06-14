@@ -115,6 +115,8 @@ class TestQuickReply(unittest.TestCase):
             payload = "vikings_{}".format(_)
             image_url = config("test_url", None)
 
+            print("Image URL is: {}".format(image_url))
+
             import random
             x = random.randint(2, 10)
 
