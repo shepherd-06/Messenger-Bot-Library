@@ -18,6 +18,15 @@ class TestButtonTemplate(unittest.TestCase):
         cls.url = config("test_url", None)
         cls.postback_payload = "TestButtonTemplate-3"
 
+        if cls.template is None:
+            print("*$#" * 20)
+            print("*$#" * 20)
+            print("*$#" * 20)
+            print("None Env Variable")
+            print("*$#" * 20)
+            print("*$#" * 20)
+            print("*$#" * 20)
+
     @classmethod
     def tearDownClass(cls):
         del cls.button

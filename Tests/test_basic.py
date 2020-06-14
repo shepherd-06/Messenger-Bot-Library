@@ -16,15 +16,6 @@ class TestBasic(unittest.TestCase):
         cls.test_user = config("test_facebook_user", None)
         cls.utility = MessengerUtility()
 
-        if cls.test_user is None:
-            print("*$#" * 20)
-            print("*$#" * 20)
-            print("*$#" * 20)
-            print("None Env Variable")
-            print("*$#" * 20)
-            print("*$#" * 20)
-            print("*$#" * 20)
-
     @classmethod
     def tearDownClass(cls):
         del cls.facebook
